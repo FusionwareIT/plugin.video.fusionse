@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para piratestreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -29,7 +29,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.italiaserie mainlist")
+    logger.info("fusionse.italiaserie mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Aggiornamenti Serie TV[/COLOR]",
                      action="peliculas",
@@ -44,7 +44,7 @@ def mainlist(item):
 
 
 def peliculas(item):
-    logger.info("streamondemand.italiaserie peliculas")
+    logger.info("fusionse.italiaserie peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -95,7 +95,7 @@ def peliculas(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 
@@ -184,7 +184,7 @@ def episodios(item):
     return itemlist
 
 def findvideos(item):
-    logger.info("streamondemand.italiaserie findvideos")
+    logger.info("fusionse.italiaserie findvideos")
 
     # Descarga la página
     data = item.url 

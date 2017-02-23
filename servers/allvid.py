@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para allvid
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -12,7 +12,7 @@ from core import logger
 from core import scrapertools
 
 def test_video_exists( page_url ):
-    logger.info("streamondemand.servers.allvid test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.allvid test_video_exists(page_url='%s')" % page_url)
     
     data = scrapertools.cache_page( page_url )
     if ("File was deleted" or "Not Found") in data: return False, "[Allvid] El archivo no existe o ha sido borrado"
@@ -20,7 +20,7 @@ def test_video_exists( page_url ):
     return True,""
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
-    logger.info("streamondemand.servers.allvid url="+page_url)
+    logger.info("fusionse.servers.allvid url="+page_url)
     
     data = scrapertools.cache_page( page_url )
     redirect_url = scrapertools.find_single_match(data,'<iframe src="([^"]+)')
@@ -34,7 +34,7 @@ def get_video_url( page_url , premium = False , user="" , password="", video_pas
         video_urls.append( [ scrapertools.get_filename_from_url(media_url)[-4:]+" ("+label+") [allvid]",media_url])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.allvid %s - %s" % (video_url[0],video_url[1]))
+        logger.info("fusionse.servers.allvid %s - %s" % (video_url[0],video_url[1]))
 
     return video_urls
 
@@ -45,7 +45,7 @@ def find_videos(data):
 
     # http://allvid.ch/jdfscsa5uoy4
     patronvideos  = "allvid.ch/(?:embed-|)([a-z0-9]+)"
-    logger.info("streamondemand.servers.allvid find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.allvid find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:

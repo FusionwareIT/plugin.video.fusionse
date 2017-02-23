@@ -11,7 +11,7 @@
 	<thumbnail>https://raw.githubusercontent.com/Zanzibar82/images/master/posters/casacinema.png</thumbnail>
 	<bannermenu>https://raw.githubusercontent.com/Zanzibar82/images/master/posters/casacinema.png</bannermenu>
 
-	<update_url>https://raw.githubusercontent.com/streamondemand/plugin.video.streamondemand/master/channels/</update_url>
+	<update_url>https://raw.githubusercontent.com/FusionwareIT/plugin.video.fusionse/master/channels/</update_url>
 	<version>8</version>
 	<date>16/06/2016</date>
 	<changes>update</changes>
@@ -19,7 +19,6 @@
 	<categories>
 		<category>movie</category>
                 <category>serie</category>
-                <category>cult</category>
 		<category>top channels</category>
 	</categories>
 

@@ -1,6 +1,6 @@
 # -*- coding: iso-8859-1 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para putlocker
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -88,110 +88,7 @@ def get_video_url( page_url , premium = False , user="" , password="", video_pas
         logger.info("mediaurl="+mediaurl)
         # web  http://media-a7.putlocker.com/download/17/ecopolis_._6_episodio_final_documaniatv.com_3b1c3.flv?h=T6eVK5WKEn3fDwKLcFkAog&e=1341894542&f=%27ecopolis_._6_episodio_final_documaniatv.com_3b1c3.flv%27
         # xbmc http://media-a7.putlocker.com/download/17/ecopolis_._6_episodio_final_documaniatv.com_3b1c3.flv?h=yFVjhTW95m3LqyqUH1yUDA&amp;e=1341894600&amp;f='ecopolis_._6_episodio_final_documaniatv.com_3b1c3.flv'
-        # xbmc http://media-a7.putlocker.com/download/17/ecopolis_._6_episodio_final_documaniatv.com_3b1c3.flv?h=yFVjhTW95m3LqyqUH1yUDA&e=1341894600&f=%27ecopolis_._6_episodio_final_documaniatv.com_3b1c3.flv%27
-
-        mediaurl = mediaurl.replace("&amp;","&").replace("'","%27")
-        logger.info("mediaurl="+mediaurl)
-        video_urls.append( [".flv [putlocker]",mediaurl] )
-
-    else:
-        logger.info("data="+data)
-        logger.info("[putlocker.py] No encuentra Playlist")
-        #url: 'http://s3.putlocker.ch:86/2015.mp4?key=2daad71cdc34f5a2e10665cf0efe1356'
-        videourl = scrapertools.get_match(data,"url\: '([^']+)'")
-        video_urls.append( ["[putlocker]",videourl] )
-    
-
-    for video_url in video_urls:
-        logger.info("[putlocker.py] %s - %s" % (video_url[0],video_url[1]))
-
-    return video_urls
-
-# Encuentra vídeos de este servidor en el texto pasado
-def find_videos(text):
-    encontrados = set()
-    devuelve = []
-
-    # http://www.peliculasaudiolatino.com/show/putlocker.php?url=CEE0B3A7DDFED758
-    patronvideos  = 'putlocker.php\?url=([A-Z0-9]+)'
-    logger.info("[putlocker.py] find_videos #"+patronvideos+"#")
-    matches = re.compile(patronvideos,re.DOTALL).findall(text)
-
-    for match in matches:
-        titulo = "[putlocker]"
-        url = "http://www.putlocker.com/embed/"+match
-        if url not in encontrados:
-            logger.info("  url="+url)
-            devuelve.append( [ titulo , url , 'putlocker' ] )
-            encontrados.add(url)
-        else:
-            logger.info("  url duplicada="+url)
-            
-    # http://www.putlocker.com/embed/CEE0B3A7DDFED758 | http://www.putlocker.com/file/CEE0B3A7DDFED758
-    patronvideos  = 'http://www.putlocker.com/(?:file|embed)/([A-Z0-9]+)'
-    logger.info("[putlocker.py] find_videos #"+patronvideos+"#")
-    matches = re.compile(patronvideos,re.DOTALL).findall(text)
-
-    for match in matches:
-        titulo = "[putlocker]"
-        url = "http://www.putlocker.com/embed/"+match
-        if url not in encontrados:
-            logger.info("  url="+url)
-            devuelve.append( [ titulo , url , 'putlocker' ] )
-            encontrados.add(url)
-        else:
-            logger.info("  url duplicada="+url)
-
-    #//www.cinezer.com/putlocker/CD6003D971725774
-    patronvideos  = '/putlocker/([A-Z0-9]+)'
-    logger.info("[putlocker.py] find_videos #"+patronvideos+"#")
-    matches = re.compile(patronvideos,re.DOTALL).findall(text)
-
-    for match in matches:
-        titulo = "[putlocker]"
-        url = "http://www.putlocker.com/embed/"+match
-        if url not in encontrados:
-            logger.info("  url="+url)
-            devuelve.append( [ titulo , url , 'putlocker' ] )
-            encontrados.add(url)
-        else:
-            logger.info("  url duplicada="+url)
-
-    #http://www.putlocker.ch/file/0e6f1eeb473e0d87b390a71cd50c24a2/
-    patronvideos  = '(putlocker.ch/file/[a-z0-9]+)'
-    logger.info("[putlocker.py] find_videos #"+patronvideos+"#")
-    matches = re.compile(patronvideos,re.DOTALL).findall(text)
-
-    for match in matches:
-        titulo = "[putlocker]"
-        url = "http://www."+match+"/"
-        if url not in encontrados:
-            logger.info("  url="+url)
-            devuelve.append( [ titulo , url , 'putlocker' ] )
-            encontrados.add(url)
-        else:
-            logger.info("  url duplicada="+url)
-
-    #http://www.player3k.info/putlocker/?id=92FA671A11CA7A05
-    patronvideos  = '/putlocker/\?id\=([A-Z0-9]+)'
-    logger.info("[putlocker.py] find_videos #"+patronvideos+"#")
-    matches = re.compile(patronvideos,re.DOTALL).findall(text)
-
-    for match in matches:
-        titulo = "[putlocker]"
-        url = "http://www.putlocker.com/embed/"+match
-        if url not in encontrados:
-            logger.info("  url="+url)
-            devuelve.append( [ titulo , url , 'putlocker' ] )
-            encontrados.add(url)
-        else:
-            logger.info("  url duplicada="+url)
-    
-    #http://www.yaske.net/archivos/putlocker/play.php?v=D68E78CBA144AE59
-    patronvideos  = 'putlocker/play.php\?v\=([A-Z0-9]+)'
-    logger.info("[putlocker.py] find_videos #"+patronvideos+"#")
-    matches = re.compile(patronvideos,re.DOTALL).findall(text)
-
+        # xbmc http://media-a7.putlocker.com/download/17/ecopolis_._6_episodio_final_documaniatv.com_3b1c3.flv
     for match in matches:
         titulo = "[putlocker]"
         url = "http://www.putlocker.com/embed/"+match

@@ -1,6 +1,6 @@
 # s-*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para Youtube
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -11,7 +11,10 @@ import urllib
 from core import logger
 from core import scrapertools
 
-from core import jsontools as json
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
     logger.info("[youtube.py] get_video_url(page_url='%s')" % page_url)
@@ -138,7 +141,7 @@ def extractFlashVars(data):
         data = removeAdditionalEndingDelimiter(data)                             
                                                                                       
         if found:                                                                     
-            data = json.load_json(data)
+            data = json.loads(data)                                                   
             if assets:                                                                
                 flashvars = data["assets"]                                            
             else:                                                                     
@@ -159,30 +162,31 @@ def scrapeWebPageForVideoLinks(data):
 
     fmt_value = {
         5: "240p h263 flv",
-        6: "240p h263 flv",
         18: "360p h264 mp4",
         22: "720p h264 mp4",
         26: "???",
         33: "???",
         34: "360p h264 flv",
         35: "480p h264 flv",
-        36: "3gpp",
         37: "1080p h264 mp4",
-        38: "4K h264 mp4",
-        43: "360p vp8 webm",
+        36: "3gpp",
+        38: "720p vp8 webm",
+        43: "360p h264 flv",
         44: "480p vp8 webm",
         45: "720p vp8 webm",
-        46: "1080p vp8 webm",
-        59: "480p h264 mp4",
-        78: "480p h264 mp4",
-        82: "360p h264 3D",
-        83: "480p h264 3D",
-        84: "720p h264 3D",
-        85: "1080p h264 3D",
-        100: "360p vp8 3D",
-        101: "480p vp8 3D",
-        102: "720p vp8 3D"
-    }
+        46: "520p vp8 webm",
+        59: "480 for rtmpe",
+        78: "400 for rtmpe",
+        82: "360p h264 stereo",
+        83: "240p h264 stereo",
+        84: "720p h264 stereo",
+        85: "520p h264 stereo",
+        100: "360p vp8 webm stereo",
+        101: "480p vp8 webm stereo",
+        102: "720p vp8 webm stereo",
+        120: "hd720",
+        121: "hd1080"
+        }
 
     video_urls=[]
 
@@ -193,14 +197,7 @@ def scrapeWebPageForVideoLinks(data):
     if flashvars.has_key(u"ttsurl"):
         logger.info("ttsurl="+flashvars[u"ttsurl"])
 
-    if flashvars.has_key('hlsvp'):
-        url = flashvars[u"hlsvp"]
-        video_urls.append( [ "(LIVE .m3u8) [youtube]" , url ])
-        return video_urls
-    
-    js_signature = ""
-    data_flashvars = flashvars[u"url_encoded_fmt_stream_map"].split(u",")
-    for url_desc in data_flashvars:
+    for url_desc in flashvars[u"url_encoded_fmt_stream_map"].split(u","):
         url_desc_map = cgi.parse_qs(url_desc)
         logger.info(u"url_map: " + repr(url_desc_map))
         if not (url_desc_map.has_key(u"url") or url_desc_map.has_key(u"stream")):
@@ -208,8 +205,6 @@ def scrapeWebPageForVideoLinks(data):
 
         try:
             key = int(url_desc_map[u"itag"][0])
-            if not fmt_value.get(key):
-                continue
             url = u""
             if url_desc_map.has_key(u"url"):
                 url = urllib.unquote(url_desc_map[u"url"][0])
@@ -223,28 +218,11 @@ def scrapeWebPageForVideoLinks(data):
 
             if url_desc_map.has_key(u"sig"):
                 url = url + u"&signature=" + url_desc_map[u"sig"][0]
-            elif url_desc_map.has_key(u"s"):
-                sig = url_desc_map[u"s"][0]
-                if not js_signature:
-                    urljs = scrapertools.find_single_match(data, '"assets":.*?"js":\s*"([^"]+)"')
-                    urljs = urljs.replace("\\", "")
-                    if urljs:
-                        data_js = scrapertools.downloadpage("http:"+urljs)
-                        from jsinterpreter import JSInterpreter
-                        funcname = scrapertools.find_single_match(data_js, '\.sig\|\|([A-z0-9$]+)\(')
 
-                        jsi = JSInterpreter(data_js)
-                        js_signature = jsi.extract_function(funcname)
-
-                signature = js_signature([sig])
-                url += u"&signature=" + signature
-
-            # Se encodean las comas para que no falle en método built-in
-            url = url.replace(",", "%2C")
+            #links[key] = url
             video_urls.append( [ "("+fmt_value[key]+") [youtube]" , url ])
         except:
-            import traceback
-            logger.info(traceback.format_exc())
+            logger.info("ERROR EN "+str(url_desc))
 
     return video_urls
 
@@ -257,7 +235,7 @@ def find_videos(data):
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:
-        titulo = "[YouTube]"
+        titulo = "[Trailer su YouTube]"
         url = "http://www.youtube.com/watch?v="+match
         
         if url!='':
@@ -273,7 +251,7 @@ def find_videos(data):
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:
-        titulo = "[YouTube]"
+        titulo = "[Trailer su YouTube]"
         url = "http://www.youtube.com/watch?v="+match
 
         if url not in encontrados:
@@ -289,7 +267,7 @@ def find_videos(data):
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:
-        titulo = "[YouTube]"
+        titulo = "[Trailer su YouTube]"
         url = "http://www.youtube.com/watch?v="+match
 
         if url not in encontrados:

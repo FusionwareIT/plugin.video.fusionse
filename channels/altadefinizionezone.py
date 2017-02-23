@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para altadefinizionezone
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -21,7 +21,7 @@ __language__ = "IT"
 
 DEBUG = config.get_setting("debug")
 
-host = "http://altadefinizione.movie"
+host = "http://altadefinizione.zone"
 
 headers = [
     ['User-Agent', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:44.0) Gecko/20100101 Firefox/44.0'],
@@ -37,7 +37,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.altadefinizionezone mainlist")
+    logger.info("fusionse.altadefinizionezone mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi Film Inseriti[/COLOR]",
                      action="peliculas",
@@ -111,7 +111,7 @@ def search(item, texto):
 
 
 def peliculas(item):
-    logger.info("streamondemand.altadefinizionezone peliculas")
+    logger.info("fusionse.altadefinizionezone peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -163,7 +163,7 @@ def peliculas(item):
 
 
 def peliculas_tv(item):
-    logger.info("streamondemand.altadefinizionezone peliculas")
+    logger.info("fusionse.altadefinizionezone peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -215,7 +215,7 @@ def peliculas_tv(item):
 
 
 def seasons(item):
-    logger.info("streamondemand.channels.altadefinizionezone seasons")
+    logger.info("fusionse.channels.altadefinizionezone seasons")
 
     itemlist = []
 
@@ -245,7 +245,7 @@ def seasons(item):
 
 
 def episodios(item):
-    logger.info("streamondemand.channels.altadefinizionezone episodios")
+    logger.info("fusionse.channels.altadefinizionezone episodios")
 
     itemlist = []
 
@@ -293,4 +293,4 @@ def findvideos_tv(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")

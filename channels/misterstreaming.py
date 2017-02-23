@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para misterstreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -37,7 +37,7 @@ def isGeneric():
     return True
 
 def mainlist(item):
-    logger.info("streamondemand.istreaming mainlist")
+    logger.info("fusionse.istreaming mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi Film Inseriti[/COLOR]",
                      action="peliculas",
@@ -94,7 +94,7 @@ def categorias(item):
 
 
 def search(item, texto):
-    logger.info("streamondemand.misterstreaming " + item.url + " search " + texto)
+    logger.info("fusionse.misterstreaming " + item.url + " search " + texto)
     item.url = host + "/?s=" + texto
     try:
         if item.extra == "movie":
@@ -110,7 +110,7 @@ def search(item, texto):
 
 
 def peliculas(item):
-    logger.info("streamondemand.misterstreaming peliculas")
+    logger.info("fusionse.misterstreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -157,7 +157,7 @@ def peliculas(item):
     return itemlist
 
 def peliculas_tv(item):
-    logger.info("streamondemand.misterstreaming peliculas")
+    logger.info("fusionse.misterstreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -278,7 +278,7 @@ def episodios(item):
     return itemlist
 
 def findvideos_tv(item):
-    logger.info("streamondemand.misterstreaming findvideos_tv")
+    logger.info("fusionse.misterstreaming findvideos_tv")
 
     data = item.url
 
@@ -294,7 +294,7 @@ def findvideos_tv(item):
     return itemlist
 
 def findvideos_movie(item):
-    logger.info("streamondemand.misterstreaming findvideos_movie")
+    logger.info("fusionse.misterstreaming findvideos_movie")
 
     data = scrapertools.cache_page(item.url, headers=headers)
 
@@ -311,5 +311,5 @@ def findvideos_movie(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 

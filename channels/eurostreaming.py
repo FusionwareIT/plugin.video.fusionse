@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canale per eurostreaming.tv
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -22,7 +22,7 @@ __language__ = "IT"
 
 DEBUG = config.get_setting("debug")
 
-host = "http://eurostreaming.club"
+host = "http://eurostreaming.co"
 
 
 def isGeneric():
@@ -30,7 +30,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.eurostreaming mainlist")
+    logger.info("fusionse.eurostreaming mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Serie TV[/COLOR]",
                      action="serietv",
@@ -52,14 +52,15 @@ def mainlist(item):
     return itemlist
 
 def serietv(item):
-    logger.info("streamondemand.eurostreaming peliculas")
+    logger.info("fusionse.eurostreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
     data = scrapertools.cache_page(item.url)
 
     # Extrae las entradas (carpetas)
-    patron = '<div class="post-thumb">\s*<a href="([^"]+)" title="([^"]+)">\s*<img src="([^"]+)"'
+    patron = '<div class="post-thumb">\s*'
+    patron += '<a href="?([^>"]+)"?.*?title="?([^>"]+)"?.*?<img.*?src="([^>"]+)'
     matches = re.compile(patron, re.DOTALL).findall(data)
 
     for scrapedurl, scrapedtitle, scrapedthumbnail in matches:
@@ -109,7 +110,7 @@ def serietv(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def search(item, texto):

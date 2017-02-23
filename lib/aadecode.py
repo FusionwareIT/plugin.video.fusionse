@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Lib AADecode JS and scraper of the possible cases in the returns decoded.
 # File: /lib/aadecode.py
 # Use:

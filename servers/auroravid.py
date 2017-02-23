@@ -1,7 +1,7 @@
 
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para novamov
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------

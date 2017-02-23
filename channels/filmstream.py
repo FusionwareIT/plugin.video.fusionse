@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canale per http://film-stream.cc
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -30,7 +30,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.filmstream mainlist")
+    logger.info("fusionse.filmstream mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi Film Inseriti[/COLOR]",
                      extra="movie",
@@ -69,7 +69,7 @@ def mainlist(item):
 
 
 def categorias(item):
-    logger.info("streamondemand.filmstream categorias")
+    logger.info("fusionse.filmstream categorias")
     itemlist = []
 
     data = scrapertools.cache_page(item.url)
@@ -119,7 +119,7 @@ def search(item, texto):
 # FATTO IO
 
 def aggiornamenti(item):
-    logger.info("streamondemand.filmstream aggiornamenti")
+    logger.info("fusionse.filmstream aggiornamenti")
     itemlist = []
     Day_List = []
     starts = []
@@ -179,7 +179,7 @@ def aggiornamenti(item):
 
 
 def peliculas(item):
-    logger.info("streamondemand.filmstream peliculas")
+    logger.info("fusionse.filmstream peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -242,7 +242,7 @@ def peliculas(item):
 
 
 def peliculas_tv(item):
-    logger.info("streamondemand.filmstream peliculas")
+    logger.info("fusionse.filmstream peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -306,7 +306,7 @@ def peliculas_tv(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def episodios(item):
@@ -382,7 +382,7 @@ def episodios(item):
 
 
 def findvideos(item):
-    logger.info("streamondemand.filmstream findvideos")
+    logger.info("fusionse.filmstream findvideos")
 
     # Descarga la página
     data = item.url if item.extra == 'serie' else scrapertools.cache_page(item.url)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para ilgeniodellostreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -15,7 +15,7 @@ from core.item import Item
 from core.tmdb import infoSod
 
 __channel__ = "ilgeniodellostreaming"
-__category__ = "F,S,A"
+__category__ = "F"
 __type__ = "generic"
 __title__ = "ilgeniodellostreaming (IT)"
 __language__ = "IT"
@@ -37,7 +37,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.ilgeniodellostreaming mainlist")
+    logger.info("fusionse.ilgeniodellostreaming mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi Film Inseriti[/COLOR]",
                      action="peliculas",
@@ -49,16 +49,6 @@ def mainlist(item):
                      url=host,
                      thumbnail="http://orig03.deviantart.net/6889/f/2014/079/7/b/movies_and_popcorn_folder_icon_by_matheusgrilo-d7ay4tw.png"),
                 Item(channel=__channel__,
-                     title="[COLOR azure]Serie TV[/COLOR]",
-                     action="serie",
-                     url="%s/serie/" % host,
-                     thumbnail="http://www.ilmioprofessionista.it/wp-content/uploads/2015/04/TVSeries3.png"),
-                Item(channel=__channel__,
-                     title="[COLOR azure]Anime[/COLOR]",
-                     action="serie",
-                     url="%s/anime/" % host,
-                     thumbnail="http://orig09.deviantart.net/df5a/f/2014/169/2/a/fist_of_the_north_star_folder_icon_by_minacsky_saya-d7mq8c8.png"),
-                Item(channel=__channel__,
                      title="[COLOR yellow]Cerca...[/COLOR]",
                      action="search",
                      extra="movie",
@@ -68,7 +58,6 @@ def mainlist(item):
 
 
 def categorias(item):
-    logger.info("streamondemand.ilgeniodellostreaming categorias")
     itemlist = []
 
     # Descarga la pagina
@@ -80,7 +69,10 @@ def categorias(item):
     matches = re.compile(patron, re.DOTALL).findall(bloque)
 
     for scrapedurl, scrapedtitle in matches:
-        logger.info("title=[" + scrapedtitle + "]")
+        scrapedplot = ""
+        scrapedthumbnail = ""
+ 
+        if DEBUG: logger.info("title=[" + scrapedtitle + "]")
         itemlist.append(
             Item(channel=__channel__,
                  action="peliculas",
@@ -92,58 +84,48 @@ def categorias(item):
     return itemlist
 
 def search(item, texto):
-    logger.info("[ilgeniodellostreaming.py] " + item.url + " search " + texto)
-    item.url = "http://ilgeniodellostreaming.cc/?s=" + texto
-
+    logger.info("[playcinema.py] " + item.url + " search " + texto)
+    item.url = host + "/?s=" + texto
     try:
         return peliculas_src(item)
-
+    # Se captura la excepción, para no interrumpir al buscador global si un canal falla
     except:
         import sys
         for line in sys.exc_info():
             logger.error("%s" % line)
-
-    return []
+        return []
 
 def peliculas_src(item):
-    logger.info("streamondemand.ilgeniodellostreaming peliculas")
+    logger.info("fusionse.ilgeniodellostreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
     data = scrapertools.cache_page(item.url, headers=headers)
 
-    patron = '<div class="thumbnail animation-2"><a href="(.*?)"><img src="(.*?)" alt="(.*?)" />[^>]+>(.*?)</span>'
+    # Extrae las entradas (carpetas)
+    patron = '<div class="thumbnail animation-2">\s*<a href="(.*?)"[^>]+>\s*<img src="(.*?)" alt="(.*?)" />'
     matches = re.compile(patron, re.DOTALL).findall(data)
 
-    for scrapedurl, scrapedthumbnail, scrapedtitle, scrapedtipo in matches:
+    for scrapedurl, scrapedthumbnail, scrapedtitle in matches:
+        scrapedplot = ""
         scrapedtitle = scrapertools.decodeHtmlentities(scrapedtitle)
-        logger.info("title=[" + scrapedtitle + "], url=[" + scrapedurl + "], thumbnail=[" + scrapedthumbnail + "]")
-
-        if scrapedtipo=="TV":
-            itemlist.append(infoSod(
-                Item(channel=__channel__,
-                     action="episodios",
-                     fulltitle=scrapedtitle,
-                     show=scrapedtitle,
-                     title="[COLOR azure]" + scrapedtitle + "[/COLOR]",
-                     url=scrapedurl,
-                     thumbnail=scrapedthumbnail,
-                     folder=True), tipo='tv'))
-        else:
-            itemlist.append(infoSod(
-                Item(channel=__channel__,
-                     action="findvideos",
-                     fulltitle=scrapedtitle,
-                     show=scrapedtitle,
-                     title="[COLOR azure]" + scrapedtitle + "[/COLOR]",
-                     url=scrapedurl,
-                     thumbnail=scrapedthumbnail,
-                     folder=True), tipo='movie'))
+        if DEBUG: logger.info(
+            "title=[" + scrapedtitle + "], url=[" + scrapedurl + "], thumbnail=[" + scrapedthumbnail + "]")
+        itemlist.append(infoSod(
+            Item(channel=__channel__,
+                 action="findvideos",
+                 fulltitle=scrapedtitle,
+                 show=scrapedtitle,
+                 title="[COLOR azure]" + scrapedtitle + "[/COLOR]",
+                 url=scrapedurl,
+                 thumbnail=scrapedthumbnail,
+                 plot=scrapedplot,
+                 folder=True), tipo='movie'))
 
     return itemlist
 
 def peliculas(item):
-    logger.info("streamondemand.ilgeniodellostreaming peliculas")
+    logger.info("fusionse.ilgeniodellostreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -190,101 +172,6 @@ def peliculas(item):
 
     return itemlist
 
-def serie(item):
-    logger.info("streamondemand.ilgeniodellostreaming peliculas")
-    itemlist = []
-
-    # Descarga la pagina
-    data = scrapertools.cache_page(item.url, headers=headers)
-
-    # Extrae las entradas (carpetas)
-    patron = '<div class="poster">\s*<a href="([^"]+)"><img src="([^"]+)" alt="([^"]+)"></a>'
-    matches = re.compile(patron, re.DOTALL).findall(data)
-
-    for scrapedurl, scrapedthumbnail, scrapedtitle in matches:
-        scrapedplot = ""
-        scrapedtitle = scrapertools.decodeHtmlentities(scrapedtitle)
-        if DEBUG: logger.info(
-            "title=[" + scrapedtitle + "], url=[" + scrapedurl + "], thumbnail=[" + scrapedthumbnail + "]")
-        itemlist.append(infoSod(
-            Item(channel=__channel__,
-                 action="episodios",
-                 fulltitle=scrapedtitle,
-                 show=scrapedtitle,
-                 title="[COLOR azure]" + scrapedtitle + "[/COLOR]",
-                 url=scrapedurl,
-                 thumbnail=scrapedthumbnail,
-                 plot=scrapedplot,
-                 folder=True), tipo='tv'))
-
-    # Extrae el paginador
-    patronvideos = '<span class="current">[^<]+<[^>]+><a href=\'(.*?)\''
-    matches = re.compile(patronvideos, re.DOTALL).findall(data)
-
-    if len(matches) > 0:
-        scrapedurl = urlparse.urljoin(item.url, matches[0])
-        itemlist.append(
-            Item(channel=__channel__,
-                 action="HomePage",
-                 title="[COLOR yellow]Torna Home[/COLOR]",
-                 folder=True)),
-        itemlist.append(
-            Item(channel=__channel__,
-                 action="peliculas",
-                 title="[COLOR orange]Successivo >>[/COLOR]",
-                 url=scrapedurl,
-                 thumbnail="http://2.bp.blogspot.com/-fE9tzwmjaeQ/UcM2apxDtjI/AAAAAAAAeeg/WKSGM2TADLM/s1600/pager+old.png",
-                 folder=True))
-
-    return itemlist
-
-def episodios(item):
-    logger.info("streamondemand.ilgeniodellostreaming episodios")
-    itemlist = []
-
-
-    patron='<ul class="episodios">.*?</ul>'
-
-    data = scrapertools.cache_page(item.url, headers=headers)
-    matches = re.compile(patron, re.DOTALL).findall(data)
-
-    for match in matches:
-
-        patron='<li><div class="imagen"><a href="(.*?)">[^>]+>[^>]+>[^>]+><.*?numerando">(.*?)<[^>]+>[^>]+>[^>]+>(.*?)</a>'
-        episodi = re.compile(patron, re.DOTALL).findall(match)
-
-        for scrapedurl,scrapednumber,scrapedtitle in episodi:
-            n0 = scrapednumber.replace(" ","")
-            n1 = n0.replace("-","x")
-
-            itemlist.append(Item(channel=__channel__,
-                                 action="findvideos",
-                                 fulltitle=n1 + " " + scrapedtitle,
-                                 show=n1 + " " + scrapedtitle,
-                                 title= n1 + " [COLOR orange] " + scrapedtitle + "[/COLOR]",
-                                 url=scrapedurl,
-                                 thumbnail=item.thumbnail,
-                                 plot=item.plot,
-                                 folder=True))
-
-    if config.get_library_support() and len(itemlist) != 0:
-        itemlist.append(
-            Item(channel=__channel__,
-                 title=item.title + " [COLOR yellow] Aggiungi alla liberia [/COLOR]",
-                 url=item.url,
-                 action="add_serie_to_library",
-                 extra="episodios",
-                 show=item.show))
-        itemlist.append(
-            Item(channel=item.channel,
-                 title="Scarica tutti gli episodi della serie",
-                 url=item.url,
-                 action="download_all_episodes",
-                 extra="episodios",
-                 show=item.show))
-
-    return itemlist
-
 
 def findvideos(item):
     logger.info("[streaminglove.py] play")
@@ -310,4 +197,4 @@ def findvideos(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")

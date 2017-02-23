@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para nosvideo
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
 
+import base64
 import re
 
 from core import logger
@@ -12,7 +13,7 @@ from core import scrapertools
 
 
 def test_video_exists(page_url):
-    logger.info("streamondemand.servers.nosvideo.py test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.nosvideo.py test_video_exists(page_url='%s')" % page_url)
 
     data = scrapertools.cache_page(page_url)
 
@@ -23,27 +24,18 @@ def test_video_exists(page_url):
 
 
 def get_video_url(page_url, premium=False, user="", password="", video_password=""):
-    logger.info("streamondemand.servers.nosvideo.py get_video_url(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.nosvideo.py get_video_url(page_url='%s')" % page_url)
     video_urls = []
 
     # Lee la URL
     data = scrapertools.cache_page(page_url)
-    urls = scrapertools.find_multiple_matches(data, ":'(http:\/\/.+?(?:v.mp4|.smil))")
-    urls = set(urls)
+    decode = scrapertools.find_single_match(data, 'tracker: "([^"]+)"')
+    media_url = base64.b64decode(decode)
 
-    for media_url in urls:
-        if ".smil" in media_url:
-            data = scrapertools.downloadpage(media_url)
-            rtmp = scrapertools.find_single_match(data, '<meta base="([^"]+)"')
-            playpath = scrapertools.find_single_match(data, '<video src="([^"]+)"')
-            media_url = rtmp + " playpath=" + playpath
-            filename = "rtmp"
-        else:
-            filename = scrapertools.get_filename_from_url(media_url)[-4:]
-        video_urls.append([ filename + " [nosvideo]", media_url])
+    video_urls.append([scrapertools.get_filename_from_url(media_url)[-4:] + " [nosvideo]", media_url])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.nosvideo.py %s - %s" % (video_url[0], video_url[1]))
+        logger.info("fusionse.servers.nosvideo.py %s - %s" % (video_url[0], video_url[1]))
 
     return video_urls
 
@@ -56,7 +48,7 @@ def find_videos(data):
     # http://nosvideo.com/?v=iij5rw25kh4c
     # http://nosvideo.com/vj/video.php?u=27cafd27ce64900d&w=640&h=380
     patronvideos = 'nosvideo.com/(?:\?v=|vj/video.php\?u=|)([a-z0-9]+)'
-    logger.info("streamondemand.servers.nosvideo.py find_videos #" + patronvideos + "#")
+    logger.info("fusionse.servers.nosvideo.py find_videos #" + patronvideos + "#")
     matches = re.compile(patronvideos, re.DOTALL).findall(data)
 
     for match in matches:
@@ -71,7 +63,7 @@ def find_videos(data):
 
     # http://nosupload.com/?v=iij5rw25kh4c
     patronvideos = 'nosupload.com(/\?v\=[a-z0-9]+)'
-    logger.info("streamondemand.servers.nosvideo.py find_videos #" + patronvideos + "#")
+    logger.info("fusionse.servers.nosvideo.py find_videos #" + patronvideos + "#")
     matches = re.compile(patronvideos, re.DOTALL).findall(data)
 
     for match in matches:

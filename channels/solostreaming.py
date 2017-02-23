@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canale per solo-streaming.com
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -30,7 +30,7 @@ def isGeneric():
     return True
 
 def mainlist(item):
-    logger.info("streamondemand.solostreaming mainlist")
+    logger.info("fusionse.solostreaming mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[B][COLOR royalblue][SERIE TV][/COLOR][/B] [B][COLOR deepskyblue]ULTIMI EPISODI AGGIORNATI[/COLOR][/B]",
                      action="updateserietv",
@@ -154,7 +154,7 @@ def cache_jsonpage(url):
 
 
 def dailyupdateserietv(item):
-    logger.info("streamondemand.solostreaming dailyupdateserietv")
+    logger.info("fusionse.solostreaming dailyupdateserietv")
 
     itemlist = []
 
@@ -194,7 +194,7 @@ def dailyupdateserietv(item):
 
 
 def showupdateserietv(item):
-    logger.info("streamondemand.solostreaming showupdateserietv")
+    logger.info("fusionse.solostreaming showupdateserietv")
 
     extra = json.loads(item.extra)
 
@@ -247,7 +247,7 @@ def showupdateserietv(item):
 
 
 def updateserietv(item):
-    logger.info("streamondemand.solostreaming update serietv")
+    logger.info("fusionse.solostreaming update serietv")
 
     itemlist = []
 
@@ -311,7 +311,7 @@ def updateserietv(item):
 
 
 def serietv(item):
-    logger.info("streamondemand.solostreaming serietv")
+    logger.info("fusionse.solostreaming serietv")
 
     itemlist = []
 
@@ -360,7 +360,7 @@ def serietv(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def search(item, texto):

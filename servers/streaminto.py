@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Connettore streaminto
-# http://www.mimediacenter.info/foro/viewforum.php?f=36
+# http://blog.tvalacarta.info/plugin-xbmc/pelisalacarta/
 # ------------------------------------------------------------
 
-import re
-
-from core import logger
-from core import scrapertools
+from core.scrapertools import *
 
 
 def test_video_exists(page_url):
     logger.info("[streaminto.py] test_video_exists(page_url='%s')" % page_url)
 
-    data = scrapertools.cache_page(url=page_url)
+    data = cache_page(url=page_url)
     if "File was deleted" in data:
         return False, "Il file inesistent o cancellato."
     elif "Video is processing now" in data:
@@ -24,28 +21,29 @@ def test_video_exists(page_url):
 
 
 def get_video_url(page_url, premium=False, user="", password="", video_password=""):
-    logger.info("streamondemand.servers.streaminto url=" + page_url)
+    logger.info("fusionse.servers.streaminto url=" + page_url)
 
-    data = re.sub(r'\n|\t|\s+', '', scrapertools.cache_page(page_url))
+    data = re.sub(r'\n|\t|\s+', '', cache_page(page_url))
 
     video_urls = []
-    try:
-        media_url = scrapertools.get_match(data, """.setup\({file:"([^"]+)",image""")
-    except:
-        js_data = scrapertools.find_single_match(data, "(eval.function.p,a,c,k,e.*?)</script>")
-        js_data = unPack(js_data)
-        media_url = scrapertools.get_match(js_data, """.setup\({file:"([^"]+)",image""")
+    try : media_url = get_match(data, """.setup\({file:"([^"]+)",image""")
+    except: media_url = get_match(
+                            unPack(
+                                get_match(data,"(eval.function.p,a,c,k,e.*?)</script>")
+                            ),
+                            """.setup\({file:"([^"]+)",image"""
+                        )
 
     if media_url.endswith("v.mp4"):
         media_url_mp42flv = re.sub(r'/v.mp4$','/v.flv',media_url)
-        video_urls.append([scrapertools.get_filename_from_url(media_url_mp42flv)[-4:] + " [streaminto]", media_url_mp42flv])
+        video_urls.append([get_filename_from_url(media_url_mp42flv)[-4:] + " [streaminto]", media_url_mp42flv])
     if media_url.endswith("v.flv"):
         media_url_flv2mp4 = re.sub(r'/v.flv$','/v.mp4',media_url)
-        video_urls.append([scrapertools.get_filename_from_url(media_url_flv2mp4)[-4:] + " [streaminto]", media_url_flv2mp4])        
-    video_urls.append([scrapertools.get_filename_from_url(media_url)[-4:] + " [streaminto]", media_url])
+        video_urls.append([get_filename_from_url(media_url_flv2mp4)[-4:] + " [streaminto]", media_url_flv2mp4])
+    video_urls.append([get_filename_from_url(media_url)[-4:] + " [streaminto]", media_url])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.streaminto %s - %s" % (video_url[0], video_url[1]))
+        logger.info("fusionse.servers.streaminto %s - %s" % (video_url[0], video_url[1]))
 
     return video_urls
 
@@ -70,7 +68,7 @@ def find_videos(data):
 
     # http://streamin.to/z3nnqbspjyne
     patronvideos = 'streamin.to/([a-z0-9A-Z]+)'
-    logger.info("streamondemand.servers.streaminto find_videos #" + patronvideos + "#")
+    logger.info("fusionse.servers.streaminto find_videos #" + patronvideos + "#")
     matches = re.compile(patronvideos, re.DOTALL).findall(data)
 
     for match in matches:
@@ -85,7 +83,7 @@ def find_videos(data):
 
     # http://streamin.to/embed-z3nnqbspjyne.html
     patronvideos = 'streamin.to/embed-([a-z0-9A-Z]+)'
-    logger.info("streamondemand.servers.streaminto find_videos #" + patronvideos + "#")
+    logger.info("fusionse.servers.streaminto find_videos #" + patronvideos + "#")
     matches = re.compile(patronvideos, re.DOTALL).findall(data)
 
     for match in matches:

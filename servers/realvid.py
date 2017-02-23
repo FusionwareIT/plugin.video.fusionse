@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para realvid
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------

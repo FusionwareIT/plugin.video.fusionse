@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
+# -*- coding: iso-8859-1 -*-
 #------------------------------------------------------------
-# pelisalacarta
+# fusionse
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
-import os
-import sys
-sys.path.append(os.path.dirname(__file__))

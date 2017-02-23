@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para yourupload
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -13,7 +13,7 @@ from core import scrapertools
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17"
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
-    logger.info("streamondemand.servers.yourupload get_video_url(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.yourupload get_video_url(page_url='%s')" % page_url)
 
     data = scrapertools.cache_page(page_url)
     url = scrapertools.find_single_match(data,"file\: '([^']+)'")
@@ -24,16 +24,16 @@ def get_video_url( page_url , premium = False , user="" , password="", video_pas
     headers.append([ "X-Requested-With" , "ShockwaveFlash/19.0.0.185"])
 
     media_url = scrapertools.get_header_from_response(url,headers=headers,header_to_get="location")
-    logger.info("streamondemand.servers.mp4upload media_url="+media_url)
+    logger.info("fusionse.servers.mp4upload media_url="+media_url)
     media_url = media_url.replace("?null&start=0","")
-    logger.info("streamondemand.servers.mp4upload media_url="+media_url)
+    logger.info("fusionse.servers.mp4upload media_url="+media_url)
     #media_url = media_url + "|" + urllib.urlencode({'User-Agent' : USER_AGENT})
 
     video_urls = []
     video_urls.append([scrapertools.get_filename_from_url(url)[-4:]+" [yourupload]",media_url])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.yourupload %s - %s" % (video_url[0],video_url[1]))
+        logger.info("fusionse.servers.yourupload %s - %s" % (video_url[0],video_url[1]))
 
     return video_urls
 
@@ -45,7 +45,7 @@ def find_videos(data):
 
     #http://www.yourupload.com/embed/2PU6jqindD1Q
     patronvideos  = 'yourupload.com/embed/([A-Za-z0-9]+)'
-    logger.info("streamondemand.servers.yourupload find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.yourupload find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:
@@ -60,7 +60,7 @@ def find_videos(data):
 
     #http://embed.yourupload.com/2PU6jqindD1Q
     patronvideos  = 'embed.yourupload.com/([A-Za-z0-9]+)'
-    logger.info("streamondemand.servers.yourupload find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.yourupload find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:

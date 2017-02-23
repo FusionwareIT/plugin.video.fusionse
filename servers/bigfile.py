@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para bigfile
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -11,12 +11,12 @@ from core import logger
 
 
 def test_video_exists( page_url ):
-    logger.info("streamondemand.servers.bigfile test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.bigfile test_video_exists(page_url='%s')" % page_url)
     
     return True,""
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
-    logger.info("streamondemand.servers.bigfile get_video_url(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.bigfile get_video_url(page_url='%s')" % page_url)
     video_urls = []
     return video_urls
 
@@ -27,7 +27,7 @@ def find_videos(data):
 
     # https://www.bigfile.to/file/cKMCXrm7gZqv
     patronvideos  = 'bigfile.to/((?:list/|file/)[\w]+)'
-    logger.info("streamondemand.servers.bigfile find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.bigfile find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:

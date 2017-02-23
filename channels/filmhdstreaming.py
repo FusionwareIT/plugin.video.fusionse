@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal per filmhdstreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #  By Costaplus

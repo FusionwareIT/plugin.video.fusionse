@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para cinemasubito
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -35,7 +35,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.cinemasubito mainlist")
+    logger.info("fusionse.cinemasubito mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Aggiornamenti Film[/COLOR]",
                      action="peliculas",
@@ -98,7 +98,7 @@ def categorias(item):
 
 
 def search(item, texto):
-    logger.info("streamondemand.cinemasubito " + item.url + " search " + texto)
+    logger.info("fusionse.cinemasubito " + item.url + " search " + texto)
     item.url = host + "/search.php?keywords=" + texto
     try:
         if item.extra == "movie":
@@ -113,7 +113,7 @@ def search(item, texto):
         return []
 
 def peliculas_movie_src(item):
-    logger.info("streamondemand.cinemasubito peliculas")
+    logger.info("fusionse.cinemasubito peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -163,7 +163,7 @@ def peliculas_movie_src(item):
     return itemlist
 
 def peliculas(item):
-    logger.info("streamondemand.cinemasubito peliculas")
+    logger.info("fusionse.cinemasubito peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -213,7 +213,7 @@ def peliculas(item):
     return itemlist
 
 def peliculas_tv_src(item):
-    logger.info("streamondemand.cinemasubito peliculas")
+    logger.info("fusionse.cinemasubito peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -263,7 +263,7 @@ def peliculas_tv_src(item):
     return itemlist
 
 def peliculas_tv(item):
-    logger.info("streamondemand.cinemasubito peliculas")
+    logger.info("fusionse.cinemasubito peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -313,7 +313,7 @@ def peliculas_tv(item):
     return itemlist
 
 def seasons(item):
-    logger.info("streamondemand.channels.cinemasubito episodios")
+    logger.info("fusionse.channels.cinemasubito episodios")
 
     itemlist = []
 
@@ -341,7 +341,7 @@ def seasons(item):
     return itemlist
 
 def episodios(item):
-    logger.info("streamondemand.channels.cinemasubito episodios")
+    logger.info("fusionse.channels.cinemasubito episodios")
 
     itemlist = []
 
@@ -369,7 +369,7 @@ def episodios(item):
     return itemlist
 
 def findvideos(item):
-    logger.info("streamondemand.cinemasubito findvideos_tv")
+    logger.info("fusionse.cinemasubito findvideos_tv")
 
     data = scrapertools.anti_cloudflare(item.url, headers)
 
@@ -386,5 +386,5 @@ def findvideos(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 

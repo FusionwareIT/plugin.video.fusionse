@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para thevideos
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -12,7 +12,7 @@ from core import logger
 from core import scrapertools
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
-    logger.info("streamondemand.servers.thevideos url="+page_url)
+    logger.info("fusionse.servers.thevideos url="+page_url)
 
     headers = [['User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14']]
     data = scrapertools.cache_page( page_url , headers=headers )
@@ -29,7 +29,7 @@ def get_video_url( page_url , premium = False , user="" , password="", video_pas
         video_urls.append( [ media_url[-4:]+" [thevideos] "+quality, media_url])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.thevideos %s - %s" % (video_url[0],video_url[1]))
+        logger.info("fusionse.servers.thevideos %s - %s" % (video_url[0],video_url[1]))
 
     return video_urls
 
@@ -43,7 +43,7 @@ def find_videos(data):
     #http://thevideos.tv/fxp1ffutzw2y.html
     #http://thevideos.tv/embed-fxp1ffutzw2y.html
     patronvideos  = 'thevideos.tv/(?:embed-|)([a-z0-9A-Z]+)'
-    logger.info("streamondemand.servers.thevideos find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.thevideos find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:

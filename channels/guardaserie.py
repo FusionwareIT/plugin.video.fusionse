@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para guardaserie - Thank you robalo!
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -32,7 +32,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.channels.guardaserie mainlist")
+    logger.info("fusionse.channels.guardaserie mainlist")
 
     itemlist = [Item(channel=__channel__,
                      action="ultimi",
@@ -69,7 +69,7 @@ def mainlist(item):
 
 
 def search(item, texto):
-    logger.info("streamondemand.channels.guardaserie search")
+    logger.info("fusionse.channels.guardaserie search")
 
     item.url = host + "/?s=" + texto
 
@@ -86,7 +86,7 @@ def search(item, texto):
 
 
 def fichas(item):
-    logger.info("streamondemand.channels.guardaserie fichas")
+    logger.info("fusionse.channels.guardaserie fichas")
 
     itemlist = []
 
@@ -120,7 +120,7 @@ def fichas(item):
 
 
 def ultimi(item):
-    logger.info("streamondemand.channels.guardaserie fichas")
+    logger.info("fusionse.channels.guardaserie fichas")
 
     itemlist = []
 
@@ -155,7 +155,7 @@ def ultimi(item):
     return itemlist
 
 def anime(item):
-    logger.info("streamondemand.channels.guardaserie anime")
+    logger.info("fusionse.channels.guardaserie anime")
 
     itemlist = []
 
@@ -190,7 +190,7 @@ def anime(item):
 
 
 def cartoni(item):
-    logger.info("streamondemand.channels.guardaserie fichas")
+    logger.info("fusionse.channels.guardaserie fichas")
 
     itemlist = []
 
@@ -223,7 +223,7 @@ def cartoni(item):
 
 
 def progs(item):
-    logger.info("streamondemand.channels.guardaserie fichas")
+    logger.info("fusionse.channels.guardaserie fichas")
 
     itemlist = []
 
@@ -256,7 +256,7 @@ def progs(item):
 
 
 def cerca(item):
-    logger.info("streamondemand.channels.guardaserie fichas")
+    logger.info("fusionse.channels.guardaserie fichas")
 
     itemlist = []
 
@@ -290,7 +290,7 @@ def cerca(item):
 
 
 def episodios(item):
-    logger.info("streamondemand.channels.guardaserie episodios")
+    logger.info("fusionse.channels.guardaserie episodios")
 
     item.title = item.fulltitle
 
@@ -353,7 +353,7 @@ def episodios(item):
 
 
 def findvideos(item):
-    logger.info("streamondemand.channels.guardaserie findvideos")
+    logger.info("fusionse.channels.guardaserie findvideos")
 
     itemlist = []
 

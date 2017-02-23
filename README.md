@@ -1,4 +1,4 @@
-![alt tag](https://raw.githubusercontent.com/Zanzibar82/plugin.video.streamondemand/master/icon.png)
+![alt tag](https://raw.githubusercontent.com/Zanzibar82/plugin.video.fusionse/master/icon.png)
 # Stream On Demand
 
 Son of pelisalacarta:
@@ -25,7 +25,7 @@ Raùl (for his native "general search" function we found here
 Chryses (for initial, raw, idea about auto-updates)
 
 fenice82 (for editing the useful xml files for channels and for
-          adapting pelisalacarta-UI to Streamondemand-PureIta, https://github.com/Fenice82/plugin.video.streamondemand-pureita)
+          adapting pelisalacarta-UI to Streamondemand-PureIta, https://github.com/Fenice82/plugin.video.fusionse-pureita)
 
 orione7 (for keeping up the pureITA "side project")
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para vidto.me
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -18,7 +18,7 @@ headers = [
 
 
 def get_video_url(page_url, premium=False, user="", password="", video_password=""):
-    logger.info("streamondemand.servers.vidtome url=" + page_url)
+    logger.info("fusionse.servers.vidtome url=" + page_url)
 
     data = scrapertools.cache_page(page_url, headers=headers)
     # logger.info("data="+data)
@@ -54,7 +54,7 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
         video_urls.append([scrapertools.get_filename_from_url(media_url)[-4:] + " (ORIGINAL) [vidto.me]", media_url])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.vidtome %s - %s" % (video_url[0], video_url[1]))
+        logger.info("fusionse.servers.vidtome %s - %s" % (video_url[0], video_url[1]))
 
     return video_urls
 
@@ -64,7 +64,7 @@ def find_videos(data):
     devuelve = []
 
     patronvideos = r'//(?:www\.)?vidto\.me/(?:embed-)?([0-9A-Za-z]+)'
-    logger.info("streamondemand.servers.vidtome find_videos #" + patronvideos + "#")
+    logger.info("fusionse.servers.vidtome find_videos #" + patronvideos + "#")
     matches = re.compile(patronvideos, re.DOTALL).findall(data)
 
     for match in matches:

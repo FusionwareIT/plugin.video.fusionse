@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para piratestreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -20,7 +20,7 @@ __type__ = "generic"
 __title__ = "guardarefilm (IT)"
 __language__ = "IT"
 
-host = "http://www.guardarefilm.eu"
+host = "http://www.guardarefilm.me"
 
 headers = [
     ['User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:38.0) Gecko/20100101 Firefox/38.0'],
@@ -36,7 +36,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.guardarefilm mainlist")
+    logger.info("fusionse.guardarefilm mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Novita' Al Cinema[/COLOR]",
                      action="peliculas",
@@ -82,7 +82,7 @@ def mainlist(item):
 
 
 def categorias(item):
-    logger.info("streamondemand.guardarefilm categorias")
+    logger.info("fusionse.guardarefilm categorias")
     itemlist = []
 
     data = scrapertools.cache_page(item.url, headers=headers)
@@ -128,7 +128,7 @@ def search(item, texto):
 
 
 def peliculas(item):
-    logger.info("streamondemand.guardarefilm peliculas")
+    logger.info("fusionse.guardarefilm peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -178,7 +178,7 @@ def peliculas(item):
 
 
 def peliculas_tv(item):
-    logger.info("streamondemand.guardarefilm peliculas")
+    logger.info("fusionse.guardarefilm peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -229,11 +229,11 @@ def peliculas_tv(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def pelis_top100(item):
-    logger.info("streamondemand.guardarefilm peliculas")
+    logger.info("fusionse.guardarefilm peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -270,7 +270,7 @@ def pelis_top100(item):
 
 
 def episodios(item):
-    logger.info("streamondemand.guardarefilm episodios")
+    logger.info("fusionse.guardarefilm episodios")
 
     itemlist = []
 
@@ -315,7 +315,7 @@ def episodios(item):
 
 
 def findvid_serie(item):
-    logger.info("streamondemand.guardarefilm findvideos")
+    logger.info("fusionse.guardarefilm findvideos")
 
     # Descarga la página
     data = item.extra

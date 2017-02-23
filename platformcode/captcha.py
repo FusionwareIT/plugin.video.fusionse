@@ -10,7 +10,7 @@ from xbmcaddon import Addon
 from core import config
 from core import logger
 
-__settings__ = Addon("plugin.video.streamondemand")
+__settings__ = Addon("plugin.video.fusionse")
 __addonDir__ = __settings__.getAddonInfo("path")
 
 DEFAULT_CAPTCHA = os.path.join(__addonDir__, "resources", "images", "noimage.gif")
@@ -66,7 +66,7 @@ class InputWindow(xbmcgui.WindowXMLDialog):
             self.setKeyOnKeyboard()
         elif controlId == CTRL_ID_IP:  # ip
             dialog = xbmcgui.Dialog()
-            value = dialog.numeric(3, "Inserisci IP", '')
+            value = dialog.numeric(3, "Introduce la IP", '')
             self.getControl(CTRL_ID_TEXT).setLabel(self.getControl(CTRL_ID_TEXT).getLabel() + value)
         elif controlId == CTRL_ID_SYMB:  # num
             self.getControl(CTRL_ID_MAYS).setSelected(False)

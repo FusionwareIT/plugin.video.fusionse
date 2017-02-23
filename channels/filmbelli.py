@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para itafilmtv
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #  By Costaplus
@@ -187,7 +187,7 @@ def log(funzione="", stringa="", canale=__channel__):
 
 # -----------------------------------------------------------------
 def HomePage(item):
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 # =================================================================

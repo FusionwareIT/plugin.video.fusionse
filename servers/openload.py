@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector for openload.co by cmos
-# http://blog.tvalacarta.info/plugin-xbmc/streamondemand/
+# http://blog.tvalacarta.info/plugin-xbmc/fusionse/
 # ------------------------------------------------------------
 
 import re
@@ -31,7 +31,7 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
     video_urls = []
 
     data = scrapertools.downloadpageWithoutCookies(page_url)
-    subtitle = scrapertools.find_single_match(data, '<track kind="captions" src="([^"]+)" srclang="it"')
+    subtitle = scrapertools.find_single_match(data, '<track kind="captions" src="([^"]+)" srclang="es"')
     #Header para la descarga
     header_down = "|User-Agent="+headers['User-Agent']
 
@@ -42,28 +42,26 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
             data = scrapertools.downloadpageWithoutCookies(url)
 
         text_encode = scrapertools.find_multiple_matches(data, '(ﾟωﾟ.*?\(\'\_\'\));')
-        text_decode = ''.join([aadecode(t) for t in text_encode])
+        text_decode = ""
+        for t in text_encode:
+            text_decode += aadecode(t)
 
         var_r = scrapertools.find_single_match(text_decode, "window.r\s*=\s*['\"]([^'\"]+)['\"]")
         var_encodes = scrapertools.find_multiple_matches(data, 'id="'+var_r+'[^"]*">([^<]+)<')
 
         videourl = ""
+        text_decode = ""
         for encode in var_encodes:
             try:
-                first_two_chars = int(float(encode[0:][:2]))
-
-                tab_code = {}
-                index = 2
+                v1 = int(encode[0:3])
+                v2 = int(encode[3:5])
+                index = 5
                 while index < len(encode):
-                    key = int(float(encode[index + 3:][:2]))
-                    tab_code[key] = chr(int(float(encode[index:][:3])) - first_two_chars)
+                    text_decode += chr(int(encode[index:index+3]) + v1 - v2 * int(encode[index+3:index+3+2]))
                     index += 5
-
-                sorted(tab_code, key=lambda key: tab_code[key])
-                text_decode = ''.join(['%s' % value for (key, value) in tab_code.items()])
             except:
                 continue
-
+         
             videourl = "https://openload.co/stream/%s?mime=true" % text_decode
             resp_headers = scrapertools.get_headers_from_response(videourl)
             extension = ""
@@ -79,7 +77,7 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
             videourl, extension = get_link_api(page_url)
     except:
         import traceback
-        logger.info("streamondemand.servers.openload "+traceback.format_exc())
+        logger.info("fusionse.servers.openload "+traceback.format_exc())
         # Falla el método, se utiliza la api aunque en horas punta no funciona
         videourl, extension = get_link_api(page_url)
 
@@ -97,7 +95,7 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
         video_urls.append([extension + " [Openload] ", videourl, 0, subtitle])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.openload %s - %s" % (video_url[0],video_url[1]))
+        logger.info("fusionse.servers.openload %s - %s" % (video_url[0],video_url[1]))
 
     return video_urls
 
@@ -108,7 +106,7 @@ def find_videos(text):
     devuelve = []
 
     patronvideos = '(?:openload|oload).../(?:embed|f)/([0-9a-zA-Z-_]+)'
-    logger.info("streamondemand.servers.openload find_videos #" + patronvideos + "#")
+    logger.info("fusionse.servers.openload find_videos #" + patronvideos + "#")
 
     matches = re.compile(patronvideos, re.DOTALL).findall(text)
 

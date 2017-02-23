@@ -2,7 +2,7 @@
 # ------------------------------------------------------------
 # pelisalacarta - XBMC Plugin
 # Conector para wstream.video
-# http://www.mimediacenter.info/foro/viewforum.php?f=36
+# http://blog.tvalacarta.info/plugin-xbmc/pelisalacarta/
 # by DrZ3r0
 # ------------------------------------------------------------
 

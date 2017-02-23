@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para mega.co.nz
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------

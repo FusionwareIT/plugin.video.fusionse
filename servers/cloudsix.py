@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para cloudsix
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -11,12 +11,12 @@ from core import logger
 
 
 def test_video_exists( page_url ):
-    logger.info("streamondemand.servers.cloudsix test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.cloudsix test_video_exists(page_url='%s')" % page_url)
     
-    return False,"Este servidor no es compatible con streamondemand"
+    return False,"Este servidor no es compatible con fusionse"
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
-    logger.info("streamondemand.servers.cloudsix get_video_url(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.cloudsix get_video_url(page_url='%s')" % page_url)
     video_urls = []
     return video_urls
 
@@ -27,7 +27,7 @@ def find_videos(data):
 
     # http://cloudsix.me/users/abc/123/BlaBlaBla.cas
     patronvideos  = 'cloudsix.me/users/([^\/]+/\d+)'
-    logger.info("streamondemand.servers.cloudsix find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.cloudsix find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:

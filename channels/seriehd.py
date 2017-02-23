@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para seriehd - based on guardaserie channel
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -231,9 +231,6 @@ def findvideos(item):
 
             for media_label, media_url in re.compile(patron_media).findall(data):
                 media_label = scrapertools.decodeHtmlentities(media_label)
-
-                if media_label == 'videomega':
-                    media_label = 'rapidvideocom'
 
                 itemlist.append(
                     Item(channel=__channel__,

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para piratestreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -22,7 +22,7 @@ __language__ = "IT"
 
 DEBUG = config.get_setting("debug")
 
-host = "http://www.tantifilm.me"
+host = "http://www.tantifilm.org"
 
 headers = [
     ['User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:38.0) Gecko/20100101 Firefox/38.0'],
@@ -30,12 +30,13 @@ headers = [
     ['Referer', host]
 ]
 
+
 def isGeneric():
     return True
 
 
 def mainlist(item):
-    logger.info("streamondemand.tantifilm mainlist")
+    logger.info("fusionse.tantifilm mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultime Uscite[/COLOR]",
                      action="latest",
@@ -120,14 +121,14 @@ def search(item, texto):
 
 
 def search_peliculas(item):
-    logger.info("streamondemand.tantifilm search_peliculas")
+    logger.info("fusionse.tantifilm search_peliculas")
     itemlist = []
 
     # Descarga la pagina
     data = scrapertools.cache_page(item.url, headers=headers)
 
     # Extrae las entradas (carpetas)
-    patron = '<a href="([^"]+)" title="([^"]+)" rel="[^"]+">\s*<img width="[^"]+" height="[^"]+" src="([^"]+)" class="[^"]+" alt="[^"]+" srcset="[^"]+" sizes="[^"]+" />'
+    patron = '<a href="([^"]+)" title="([^"]+)" rel="[^"]+">\s*<img width="[^"]+" height="[^"]+" src="([^"]+)" class="[^"]+" alt="[^"]+" />'
     matches = re.compile(patron, re.DOTALL).findall(data)
 
     for scrapedurl, scrapedtitle, scrapedthumbnail in matches:
@@ -156,14 +157,14 @@ def search_peliculas(item):
 
 
 def search_peliculas_tv(item):
-    logger.info("streamondemand.tantifilm search_peliculas")
+    logger.info("fusionse.tantifilm search_peliculas")
     itemlist = []
 
     # Descarga la pagina
     data = scrapertools.cache_page(item.url, headers=headers)
 
     # Extrae las entradas (carpetas)
-    patron = '<a href="([^"]+)" title="([^"]+)" rel="[^"]+">\s*<img width="[^"]+" height="[^"]+" src="([^"]+)" class="[^"]+" alt="[^"]+" srcset="[^"]+" sizes="[^"]+" />'
+    patron = '<a href="([^"]+)" title="([^"]+)" rel="[^"]+">\s*<img width="[^"]+" height="[^"]+" src="([^"]+)" class="[^"]+" alt="[^"]+" />'
     matches = re.compile(patron, re.DOTALL).findall(data)
 
     for scrapedurl, scrapedtitle, scrapedthumbnail in matches:
@@ -192,7 +193,7 @@ def search_peliculas_tv(item):
 
 
 def peliculas(item):
-    logger.info("streamondemand.tantifilm peliculas")
+    logger.info("fusionse.tantifilm peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -247,7 +248,7 @@ def peliculas(item):
 
 
 def peliculas_tv(item):
-    logger.info("streamondemand.tantifilm peliculas")
+    logger.info("fusionse.tantifilm peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -303,11 +304,11 @@ def peliculas_tv(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def latest(item):
-    logger.info("streamondemand.tantifilm peliculas")
+    logger.info("fusionse.tantifilm peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -390,7 +391,7 @@ def episodios(item):
                          fulltitle=item.fulltitle,
                          show=item.show))
 
-    logger.info("streamondemand.tantifilm episodios")
+    logger.info("fusionse.tantifilm episodios")
 
     itemlist = []
 
@@ -463,7 +464,7 @@ def episodios(item):
 
 
 def findvideos(item):
-    logger.info("streamondemand.tantifilm findvideos")
+    logger.info("fusionse.tantifilm findvideos")
 
     # Descarga la página
     data = item.extra if item.extra != '' else scrapertools.cache_page(item.url, headers=headers)

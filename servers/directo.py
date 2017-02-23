@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para vídeos directos (urls simples)
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------

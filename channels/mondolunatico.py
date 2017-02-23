@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para mondolunatico
-# http://blog.tvalacarta.info/plugin-xbmc/streamondemand.
+# http://blog.tvalacarta.info/plugin-xbmc/fusionse.
 # ------------------------------------------------------------
 import os
 import re
@@ -43,7 +43,7 @@ def isGeneric():
     return True
 
 def mainlist(item):
-    logger.info("streamondemand.mondolunatico mainlist")
+    logger.info("fusionse.mondolunatico mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Novità[/COLOR]",
                      extra="movie",
@@ -78,7 +78,7 @@ def mainlist(item):
 
 
 def categorias(item):
-    logger.info("streamondemand.mondolunatico categorias")
+    logger.info("fusionse.mondolunatico categorias")
     itemlist = []
 
     data = scrapertools.cache_page(item.url, headers=headers)
@@ -139,7 +139,7 @@ def search(item, texto):
 
 
 def peliculas(item):
-    logger.info("streamondemand.mondolunatico peliculas")
+    logger.info("fusionse.mondolunatico peliculas")
 
     itemlist = []
 
@@ -189,7 +189,7 @@ def peliculas(item):
 
 
 def serietv(item):
-    logger.info("streamondemand.mondolunatico serietv")
+    logger.info("fusionse.mondolunatico serietv")
 
     itemlist = []
 
@@ -246,7 +246,7 @@ def serietv(item):
 
 
 def search_serietv(item, texto):
-    logger.info("streamondemand.mondolunatico serietv")
+    logger.info("fusionse.mondolunatico serietv")
 
     texto = urllib.unquote_plus(texto).lower()
 
@@ -289,11 +289,11 @@ def search_serietv(item, texto):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def episodios(item):
-    logger.info("streamondemand.mondolunatico episodios")
+    logger.info("fusionse.mondolunatico episodios")
 
     itemlist = []
 
@@ -382,7 +382,7 @@ def episodios(item):
     return itemlist
 
 def findvideos(item):
-    logger.info("streamondemand.mondolunatico findvideos")
+    logger.info("fusionse.mondolunatico findvideos")
 
     itemlist = []
 
@@ -436,7 +436,7 @@ def findvideos(item):
     return itemlist
 
 def play(item):
-    logger.info("streamondemand.mondolunatico play")
+    logger.info("fusionse.mondolunatico play")
 
     itemlist = []
 

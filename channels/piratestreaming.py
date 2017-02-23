@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para piratestreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -67,7 +67,7 @@ def mainlist(item):
 
 
 def peliculas(item):
-    logger.info("streamondemand.piratestreaming peliculas")
+    logger.info("fusionse.piratestreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -122,7 +122,7 @@ def peliculas(item):
 
 
 def peliculas_tv(item):
-    logger.info("streamondemand.piratestreaming peliculas")
+    logger.info("fusionse.piratestreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -178,7 +178,7 @@ def peliculas_tv(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def categorias(item):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para altadefinizione01
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -20,7 +20,7 @@ __type__ = "generic"
 __title__ = "AltaDefinizioneclub"
 __language__ = "IT"
 
-host = "http://altadefinizione.bid"
+host = "http://altadefinizione.onl"
 
 
 DEBUG = config.get_setting("debug")
@@ -30,10 +30,11 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.altadefinizione01 mainlist")
+    logger.info("fusionse.altadefinizione01 mainlist")
     itemlist = []
-    itemlist.append(Item(channel=__channel__,title="[COLOR azure]Prime visioni[/COLOR]",action="peliculas",url="%s/prime-visioni/" % host,thumbnail=ThumbPrimavisione,fanart=fanart))
-    itemlist.append(Item(channel=__channel__,title="[COLOR azure]Film in HD[/COLOR]",action="peliculas", url="%s/?s=[HD]" %host ,thumbnail=ThumbPrimavisione, fanart=fanart))
+    itemlist.append(Item(channel=__channel__,title="[COLOR azure]Prime visioni[/COLOR]",action="peliculas",url="%s/prime_visioni/" % host,thumbnail=ThumbPrimavisione,fanart=fanart))
+    itemlist.append(Item(channel=__channel__,title="[COLOR azure]Ultime novità[/COLOR]",action="peliculas",url="%s/news/" % host,thumbnail=ThumbPrimavisione,fanart=fanart))
+    itemlist.append(Item(channel=__channel__,title="[COLOR azure]Film in HD[/COLOR]",action="peliculas", url="http://altadefinizione.club/?s=[HD]",thumbnail=ThumbPrimavisione, fanart=fanart))
     itemlist.append(Item(channel=__channel__,title="[COLOR azure]Genere[/COLOR]",action="genere",url=host+"/", thumbnail=ThumbPrimavisione, fanart=fanart))
     itemlist.append(Item(channel=__channel__,title="[COLOR yellow]Cerca...[/COLOR]",extra="movie", action="search", thumbnail=ThumbPrimavisione, fanart=fanart))
 
@@ -42,11 +43,11 @@ def mainlist(item):
 
 
 def peliculas(item):
-    logger.info("streamondemand.altadefinizioneclub peliculas")
+    logger.info("fusionse.altadefinizioneclub peliculas")
     itemlist = []
 
-    patron = '<li><a href="([^"]+)" data-thumbnail="([^"]+)"><div>\s*<div class="title">(.*?)</div>'
-    for scrapedurl,scrapedthumbnail,scrapedtitle  in scrapedAll(item.url,patron):
+    patron = 'class="box-single-mini-post">[^<]+<.*?href="(.*?)".*?title="(.*?)"[^<]+<[^<]+<[^<]+<.*?lazy".*?src="(.*?)"'
+    for scrapedurl,scrapedtitle,scrapedthumbnail  in scrapedAll(item.url,patron):
         logger.info("title=[" + scrapedtitle + "], url=[" + scrapedurl + "], thumbnail=[" + scrapedthumbnail + "]")
         xbmc.log(("title=[" + scrapedtitle + "], url=[" + scrapedurl + "], thumbnail=[" + scrapedthumbnail + "]"))
         scrapedtitle = scrapertools.decodeHtmlentities(scrapedtitle)
@@ -76,7 +77,7 @@ def peliculas(item):
 def search(item, texto):
     logger.info("[altadefinizioneclub.py] " + item.url + " search " + texto)
     itemlist=[]
-    item.url = "http://altadefinizione.bid/?s=%s" % texto
+    item.url = "http://altadefinizione.club/?s=%s" % texto
 
     return peliculas(item)
 
@@ -99,7 +100,7 @@ def genere(item):
 
 
 def HomePage(item):
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 # =================================================================
 # Funzioni di servizio

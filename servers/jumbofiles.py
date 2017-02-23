@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para jumbofiles
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------

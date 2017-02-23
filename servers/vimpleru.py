@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para vimple.ru
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -33,7 +33,7 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
     video_urls = [[scrapertools.get_filename_from_url(media_url)[-4:] + " [vimple.ru]", media_url]]
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.vimpleru %s - %s" % (video_url[0], video_url[1]))
+        logger.info("fusionse.servers.vimpleru %s - %s" % (video_url[0], video_url[1]))
 
     return video_urls
 

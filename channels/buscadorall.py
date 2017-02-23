@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Ricerca "buscadorall"
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -49,7 +49,7 @@ TMDB_KEY = 'f7f51775877e0bb6703520952b3c7840'
 #    api_key_match = re.search('\?api_key=([\da-fA-F]+)\&amp;', tmdbxml)
 #    if api_key_match:
 #        TMDB_KEY = api_key_match.group(1)
-#        logger.info('streamondemand.buscadorall use metadata.themoviedb.org api_key')
+#        logger.info('fusionse.buscadorall use metadata.themoviedb.org api_key')
 #except Exception, e:
 #    pass
 
@@ -97,7 +97,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.buscadorall mainlist")
+    logger.info("fusionse.buscadorall mainlist")
     itemlist = [Item(channel="buscador",
                      title="[COLOR lightgreen]Cerca nei Canali...[/COLOR]",
                      action="mainlist",
@@ -131,89 +131,13 @@ def mainlist(item):
                      title="[COLOR lime]%s...[/COLOR]" % NLS_Search_Tvshow_by_Title,
                      action="search",
                      url="search_tvshow_by_title",
-                     thumbnail="https://i.imgur.com/2ZWjLn5.jpg?1"),
-                Item(channel=__channel__,
-                     title="(TV Shows) [COLOR lime]Ultimi Episodi - On-Air[/COLOR]",
-                     action="list_tvshow",
-                     url="tv/on_the_air?",
-                     plot="1",
-                     type="serie",
-                     thumbnail="https://i.imgur.com/2ZWjLn5.jpg?1"),
-                Item(channel=__channel__,
-                     title="(TV Shows) [COLOR lime]Populars[/COLOR]",
-                     action="list_tvshow",
-                     url="tv/popular?",
-                     plot="1",
-                     type="serie",
-                     thumbnail="https://i.imgur.com/2ZWjLn5.jpg?1"),
-                Item(channel=__channel__,
-                     title="(TV Shows) [COLOR lime]Top Rated[/COLOR]",
-                     action="list_tvshow",
-                     url="tv/top_rated?",
-                     plot="1",
-                     type="serie",
-                     thumbnail="https://i.imgur.com/2ZWjLn5.jpg?1"),
-                Item(channel=__channel__,
-                     title="(TV Shows) [COLOR lime]Airing Today[/COLOR]",
-                     action="list_tvshow",
-                     url="tv/airing_today?",
-                     plot="1",
-                     type="serie",
-                     thumbnail="https://i.imgur.com/2ZWjLn5.jpg?1"),
-                Item(channel=__channel__,
-                     title="(Movies) [COLOR yellow]%s[/COLOR]" % NLS_Now_Playing,
-                     action="list_movie",
-                     url="movie/now_playing?",
-                     plot="1",
-                     type="movie",
-                     thumbnail="http://i.imgur.com/B16HnVh.png"),
-                Item(channel=__channel__,
-                     title="(Movies) [COLOR yellow]%s[/COLOR]" % NLS_Popular,
-                     action="list_movie",
-                     url="movie/popular?",
-                     plot="1",
-                     type="movie",
-                     thumbnail="http://i.imgur.com/8IBjyzw.png"),
-                Item(channel=__channel__,
-                     title="(Movies) [COLOR yellow]%s[/COLOR]" % NLS_Top_Rated,
-                     action="list_movie",
-                     url="movie/top_rated?",
-                     plot="1",
-                     type="movie",
-                     thumbnail="http://www.clipartbest.com/cliparts/RiG/6qn/RiG6qn79T.png"),
-                Item(channel=__channel__,
-                     title="(Movies) [COLOR yellow]%s[/COLOR]" % NLS_Most_Voted,
-                     action="list_movie",
-                     url='discover/movie?certification_country=US&sort_by=vote_count.desc&',
-                     plot="1",
-                     type="movie",
-                     thumbnail="http://i.imgur.com/5ShnO8w.png"),
-                Item(channel=__channel__,
-                     title="(Movies) [COLOR yellow]%s[/COLOR]" % NLS_Oscar,
-                     action="list_movie",
-                     url='list/509ec17b19c2950a0600050d?',
-                     plot="1",
-                     type="movie",
-                     thumbnail="http://i.imgur.com/5ShnO8w.png"),
-                Item(channel=__channel__,
-                     title="(Movies) [COLOR yellow]%s[/COLOR]" % NLS_Last_2_months,
-                     action="list_movie",
-                     url='discover/movie?primary_release_date.gte=%s&primary_release_date.lte=%s&' % (
-                         YEAR_DATE, MONTH2_TIME),
-                     plot="1",
-                     type="movie",
-                     thumbnail="http://i.imgur.com/CsizqUI.png"),
-                Item(channel=__channel__,
-                     title="(Movies) [COLOR yellow]%s[/COLOR]" % NLS_List_by_Genre,
-                     action="list_genres",
-                     type="movie",
-                     thumbnail="http://i.imgur.com/uotyBbU.png")]
+                     thumbnail="https://i.imgur.com/2ZWjLn5.jpg?1")]
 
     return itemlist
 
 
 def list_movie(item):
-    logger.info("streamondemand.channels.database list_movie '%s/%s'" % (item.url, item.plot))
+    logger.info("fusionse.channels.database list_movie '%s/%s'" % (item.url, item.plot))
 
     results = [0, 0]
     page = int(item.plot)
@@ -231,7 +155,7 @@ def list_movie(item):
     return itemlist
 
 def list_tvshow(item):
-    logger.info("streamondemand.channels.database list_tvshow '%s/%s'" % (item.url, item.plot))
+    logger.info("fusionse.channels.database list_tvshow '%s/%s'" % (item.url, item.plot))
 
     results = [0, 0]
     page = int(item.plot)
@@ -249,7 +173,7 @@ def list_tvshow(item):
     return itemlist
 
 def list_genres(item):
-    logger.info("streamondemand.channels.database list_genres")
+    logger.info("fusionse.channels.database list_genres")
 
     tmdb_genre(1)
     itemlist = []
@@ -273,7 +197,7 @@ def search(item, search_terms):
 
 
 def search_tvshow_by_title(item, search_terms):
-    logger.info("streamondemand.channels.database search_tvshow_by_title '%s'" % (search_terms))
+    logger.info("fusionse.channels.database search_tvshow_by_title '%s'" % (search_terms))
 
     return list_movie(
         Item(channel=item.channel,
@@ -283,7 +207,7 @@ def search_tvshow_by_title(item, search_terms):
 
 
 def search_movie_by_title(item, search_terms):
-    logger.info("streamondemand.channels.database search_movie_by_title '%s'" % (search_terms))
+    logger.info("fusionse.channels.database search_movie_by_title '%s'" % (search_terms))
 
     return list_movie(
         Item(channel=item.channel,
@@ -293,7 +217,7 @@ def search_movie_by_title(item, search_terms):
 
 
 def search_similar_movie_by_title(item, search_terms):
-    logger.info("streamondemand.channels.database search_movie_by_title '%s'" % (search_terms))
+    logger.info("fusionse.channels.database search_movie_by_title '%s'" % (search_terms))
 
     return list_movie(
         Item(channel=item.channel,
@@ -303,7 +227,7 @@ def search_similar_movie_by_title(item, search_terms):
 
 
 def search_movie_by_year(item, search_terms):
-    logger.info("streamondemand.channels.database search_movie_by_year '%s'" % (search_terms))
+    logger.info("fusionse.channels.database search_movie_by_year '%s'" % (search_terms))
 
     year = url_quote_plus(search_terms)
     result = []
@@ -318,7 +242,7 @@ def search_movie_by_year(item, search_terms):
 
 
 def search_person_by_name(item, search_terms):
-    logger.info("streamondemand.channels.database search_person_by_name '%s'" % (search_terms))
+    logger.info("fusionse.channels.database search_person_by_name '%s'" % (search_terms))
 
     persons = tmdb_get_data("search/person?query=%s&" % url_quote_plus(search_terms))
 
@@ -352,7 +276,7 @@ def search_person_by_name(item, search_terms):
 
 
 def search_movie_by_person(item):
-    logger.info("streamondemand.channels.database search_movie_by_person '%s'" % (item.extra))
+    logger.info("fusionse.channels.database search_movie_by_person '%s'" % (item.extra))
 
     # return list_movie(
     #     Item(channel=item.channel,
@@ -373,7 +297,7 @@ def search_movie_by_person(item):
 
 
 def search_collection_by_name(item, search_terms):
-    logger.info("streamondemand.channels.database search_collection_by_name '%s'" % (search_terms))
+    logger.info("fusionse.channels.database search_collection_by_name '%s'" % (search_terms))
 
     collections = tmdb_get_data("search/collection?query=%s&" % url_quote_plus(search_terms))
 
@@ -398,7 +322,7 @@ def search_collection_by_name(item, search_terms):
 
 
 def search_movie_by_collection(item):
-    logger.info("streamondemand.channels.database search_movie_by_collection '%s'" % (item.extra))
+    logger.info("fusionse.channels.database search_movie_by_collection '%s'" % (item.extra))
 
     collection = tmdb_get_data("collection/%s?" % item.extra)
 
@@ -440,7 +364,7 @@ def build_movie_list(item, movies):
         found = False
         kodi_db_movies = kodi_database_movies(title)
         for kodi_db_movie in kodi_db_movies:
-            logger.info('streamondemand.database set for local playing(%s):\n%s' % (title, str(kodi_db_movie)))
+            logger.info('fusionse.database set for local playing(%s):\n%s' % (title, str(kodi_db_movie)))
             if year == str(kodi_db_movie["year"]):
                 found = True
 
@@ -468,7 +392,7 @@ def build_movie_list(item, movies):
                 ))
 
         if not found:
-            logger.info('streamondemand.database set for channels search(%s)' % title)
+            logger.info('fusionse.database set for channels search(%s)' % title)
             itemlist.append(Item(
                     channel=item.channel,
                     action='do_channels_search',
@@ -551,9 +475,9 @@ def get_xbmc_jsonrpc_response(json_query=""):
         response = xbmc.executeJSONRPC(json_query)
         response = unicode(response, 'utf-8', errors='ignore')
         response = json.loads(response)
-        logger.info("streamondemand.channels.database jsonrpc %s" % response)
+        logger.info("fusionse.channels.database jsonrpc %s" % response)
     except Exception, e:
-        logger.info("streamondemand.channels.database jsonrpc error: %s" % str(e))
+        logger.info("fusionse.channels.database jsonrpc error: %s" % str(e))
         response = None
     return response
 
@@ -570,7 +494,7 @@ def get_json_response(url=""):
     try:
         results = json.loads(response)
     except:
-        logger.info("streamondemand.channels.database Exception: Could not get new JSON data from %s" % url)
+        logger.info("fusionse.channels.database Exception: Could not get new JSON data from %s" % url)
         results = []
     return results
 
@@ -615,7 +539,7 @@ def channel_search(queue, channel_parameters, category, title_year, tecleado):
 
 
 def do_channels_search(item):
-    logger.info("streamondemand.channels.buscadorall do_channels_search")
+    logger.info("fusionse.channels.buscadorall do_channels_search")
 
     tecleado, category, title_year = item.extra.split('{}')
 
@@ -627,13 +551,13 @@ def do_channels_search(item):
     itemlist = []
 
     channels_path = os.path.join(config.get_runtime_path(), "channels", '*.xml')
-    logger.info("streamondemand.channels.buscador channels_path=" + channels_path)
+    logger.info("fusionse.channels.buscador channels_path=" + channels_path)
 
     channel_language = config.get_setting("channel_language")
-    logger.info("streamondemand.channels.buscador channel_language=" + channel_language)
+    logger.info("fusionse.channels.buscador channel_language=" + channel_language)
     if channel_language == "":
         channel_language = "all"
-        logger.info("streamondemand.channels.buscador channel_language=" + channel_language)
+        logger.info("fusionse.channels.buscador channel_language=" + channel_language)
 
     progreso = platformtools.dialog_progress_bg(NLS_Looking_For % tecleado)
 

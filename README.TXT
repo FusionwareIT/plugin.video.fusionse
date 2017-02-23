@@ -97,7 +97,7 @@ BIOS EEPROM chip with a modified BIOS.
 -- Installation                        --
 -----------------------------------------
 
-streamondemand is an XBMC plugin, not an script. It has been tested and works on XBMC, Boxee and Plex.
+fusionse is an XBMC plugin, not an script. It has been tested and works on XBMC, Boxee and Plex.
 
 To install simply unzip the file inside your video plugin folder.
 
@@ -138,7 +138,7 @@ Library/Application Support/Plex/plugins/video
 
 
 
-After installation go to XBMC, section "Video / Video Plugins" and you will see the streamondemand icon.
+After installation go to XBMC, section "Video / Video Plugins" and you will see the fusionse icon.
 
 ---------------------------------------
 -- Why i do this?                    --

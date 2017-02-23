@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para piratestreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -35,7 +35,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.filmstreampw mainlist")
+    logger.info("fusionse.filmstreampw mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi Film Inseriti[/COLOR]",
                      action="peliculas",
@@ -57,7 +57,7 @@ def mainlist(item):
 
 
 def categorias(item):
-    logger.info("streamondemand.filmstreampw categorias")
+    logger.info("fusionse.filmstreampw categorias")
     itemlist = []
 
     data = scrapertools.cache_page(item.url, headers=headers)
@@ -107,7 +107,7 @@ def search(item, texto):
 
 
 def peliculasx(item):
-    logger.info("streamondemand.filmstreampw peliculas")
+    logger.info("fusionse.filmstreampw peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -143,7 +143,7 @@ def peliculasx(item):
 
 
 def peliculas(item):
-    logger.info("streamondemand.filmstreampw peliculas")
+    logger.info("fusionse.filmstreampw peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -196,18 +196,18 @@ def peliculas(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def findvideos(item):
-    logger.info("streamondemand.filmstreampw findvideos")
+    logger.info("fusionse.filmstreampw findvideos")
 
     data = scrapertools.cache_page(item.url, headers=headers)
 
     itemlist = servertools.find_video_items(data=data.replace(r'\/', '/'))
 
     for videoitem in itemlist:
-        videoitem.title = item.title + videoitem.title.replace("-", "|")
+        videoitem.title = videoitem.title
         videoitem.fulltitle = item.fulltitle
         videoitem.thumbnail = item.thumbnail
         videoitem.show = item.show

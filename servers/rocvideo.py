@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para rocvideo
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -12,11 +12,11 @@ from core import logger
 from core import scrapertools
 
 def test_video_exists( page_url ):
-    logger.info("streamondemand.servers.rocvideo test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.rocvideo test_video_exists(page_url='%s')" % page_url)
     return True,""
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
-    logger.info("streamondemand.servers.rocvideo url="+page_url)
+    logger.info("fusionse.servers.rocvideo url="+page_url)
     if not "embed" in page_url:
         page_url = page_url.replace("http://rocvideo.tv/","http://rocvideo.tv/embed-") + ".html"
 
@@ -42,7 +42,7 @@ def find_videos(data):
     #http://rocvideo.net/mfhpecruzj2q
     #http://rocvideo.tv/mfhpecruzj2q
     patronvideos  = 'rocvideo.(?:tv|net)/embed-([a-z0-9A-Z]+)'
-    logger.info("streamondemand.servers.rocvideo find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.rocvideo find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:
@@ -56,7 +56,7 @@ def find_videos(data):
             logger.info("  url duplicada="+url)
 
     patronvideos  = 'rocvideo.(?:tv|net)/([a-z0-9A-Z]+)'
-    logger.info("streamondemand.servers.rocvideo find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.rocvideo find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:

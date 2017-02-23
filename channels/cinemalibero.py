@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para cinemalibero
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -38,7 +38,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.cinemalibero mainlist")
+    logger.info("fusionse.cinemalibero mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi Film Inseriti[/COLOR]",
                      extra="movie",
@@ -122,7 +122,7 @@ def search(item, texto):
 
 
 def peliculas(item):
-    logger.info("streamondemand.cinemalibero peliculas")
+    logger.info("fusionse.cinemalibero peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -175,7 +175,7 @@ def peliculas(item):
 
 
 def peliculas_tv(item):
-    logger.info("streamondemand.cinemalibero peliculas")
+    logger.info("fusionse.cinemalibero peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -301,7 +301,7 @@ def episodios(item):
 
 
 def findvideos(item):
-    logger.info("streamondemand.cinemalibero findvideos")
+    logger.info("fusionse.cinemalibero findvideos")
 
     data = item.url if item.extra == "serie" else scrapertools.cache_page(item.url, headers=headers)
 
@@ -319,4 +319,4 @@ def findvideos(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")

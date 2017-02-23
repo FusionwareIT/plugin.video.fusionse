@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para casacinema
-# http://blog.tvalacarta.info/plugin-xbmc/streamondemand.
+# http://blog.tvalacarta.info/plugin-xbmc/fusionse.
 # ------------------------------------------------------------
 import re
 import urlparse
@@ -34,7 +34,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.casacinema mainlist")
+    logger.info("fusionse.casacinema mainlist")
 
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Film - Novita'[/COLOR]",
@@ -99,7 +99,7 @@ def search(item, texto):
 
 
 def peliculas(item):
-    logger.info("streamondemand.casacinema peliculas")
+    logger.info("fusionse.casacinema peliculas")
 
     itemlist = []
 
@@ -147,7 +147,7 @@ def peliculas(item):
 
 
 def peliculas_tv(item):
-    logger.info("streamondemand.casacinema peliculas")
+    logger.info("fusionse.casacinema peliculas")
 
     itemlist = []
 
@@ -196,11 +196,11 @@ def peliculas_tv(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def categorias(item):
-    logger.info("streamondemand.casacinema categorias")
+    logger.info("fusionse.casacinema categorias")
 
     itemlist = []
 
@@ -297,7 +297,7 @@ def episodios(item):
     return itemlist
 
 def findvideos(item):
-    logger.info("streamondemand.casacinema findvideos")
+    logger.info("fusionse.casacinema findvideos")
 
     data = item.url if item.extra == 'serie' else scrapertools.cache_page(item.url, headers=headers)
 

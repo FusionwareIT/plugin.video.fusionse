@@ -8,6 +8,6 @@
 	<name>fileserve</name>
 	<premium></premium>
 	<thumbnail>http://media.tvalacarta.info/servers/server_fileserve.png</thumbnail>
-	<update_url>https://raw.githubusercontent.com/streamondemand/plugin.video.streamondemand/master/servers/</update_url>
+	<update_url>https://raw.githubusercontent.com/fusionse/plugin.video.fusionse/master/servers/</update_url>
 	<version>3</version>
 </server>

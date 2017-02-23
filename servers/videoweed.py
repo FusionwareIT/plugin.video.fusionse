@@ -1,6 +1,6 @@
 # -*- coding: iso-8859-1 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para videoweed
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------

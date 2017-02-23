@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para vodbeast
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -11,7 +11,7 @@ from core import logger
 from core import scrapertools
 
 def test_video_exists( page_url ):
-    logger.info("streamondemand.servers.vodbeast test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.vodbeast test_video_exists(page_url='%s')" % page_url)
     
     data = scrapertools.cache_page( page_url )
     if ("File was deleted" or "Not Found") in data: return False, "[Vodbeast] El archivo no existe o ha sido borrado"
@@ -19,7 +19,7 @@ def test_video_exists( page_url ):
     return True,""
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
-    logger.info("streamondemand.servers.vodbeast url="+page_url)
+    logger.info("fusionse.servers.vodbeast url="+page_url)
     
     data = scrapertools.cache_page( page_url )
 
@@ -29,7 +29,7 @@ def get_video_url( page_url , premium = False , user="" , password="", video_pas
         video_urls.append( [ scrapertools.get_filename_from_url(media_url)[-4:]+" [vodbeast]",media_url])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.vodbeast %s - %s" % (video_url[0],video_url[1]))
+        logger.info("fusionse.servers.vodbeast %s - %s" % (video_url[0],video_url[1]))
 
     return video_urls
 
@@ -40,7 +40,7 @@ def find_videos(data):
 
     # http://vodbeast.com/jdfscsa5uoy4
     patronvideos  = "vodbeast.com/(?:embed-|)([a-z0-9]+)"
-    logger.info("streamondemand.servers.vodbeast find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.vodbeast find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:

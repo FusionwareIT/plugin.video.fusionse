@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand 5
+# fusionse 5
 # Copyright 2015 tvalacarta@gmail.com
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #
 # Distributed under the terms of GNU General Public License v3 (GPLv3)
 # http://www.gnu.org/licenses/gpl-3.0.html
 # ------------------------------------------------------------
-# This file is part of streamondemand 5.
+# This file is part of fusionse 5.
 #
-# streamondemand 5 is free software: you can redistribute it and/or modify
+# fusionse 5 is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# streamondemand 5 is distributed in the hope that it will be useful,
+# fusionse 5 is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with streamondemand 5.  If not, see <http://www.gnu.org/licenses/>.
+# along with fusionse 5.  If not, see <http://www.gnu.org/licenses/>.
 # ------------------------------------------------------------
 # Download and play
 #------------------------------------------------------------
@@ -30,7 +30,6 @@
 import os
 import re
 import socket
-import sys
 import threading
 import time
 import urllib
@@ -65,7 +64,7 @@ def download_and_play(url,file_name,download_path):
         dialog.create('Caricamento in corso..,', 'Chiudi la finestra per avviare la riproduzione')
         dialog.update(0)
 
-        while not cancelled and download_thread.isAlive():
+        while not cancelled and download_thread.is_alive():
             dialog.update( download_thread.get_progress() , "Annulla questa finestra per avviare la riproduzione", "Velocità: "+str(int(download_thread.get_speed()/1024))+" KB/s "+str(download_thread.get_actual_size())+"MB de "+str(download_thread.get_total_size())+"MB" , "Tempo rimanente: "+str( downloadtools.sec_to_hms(download_thread.get_remaining_time())) )
             xbmc.sleep(1000)
 
@@ -89,15 +88,15 @@ def download_and_play(url,file_name,download_path):
             logger.info("[download_and_play.py] Terminado por el usuario")
             break
         else:
-            if not download_thread.isAlive():
+            if not download_thread.is_alive():
                 logger.info("[download_and_play.py] La descarga ha terminado")
                 break
             else:
                 logger.info("[download_and_play.py] Continua la descarga")
 
     # Cuando el reproductor acaba, si continúa descargando lo para ahora
-    logger.info("[download_and_play.py] Download thread alive="+str(download_thread.isAlive()))
-    if download_thread.isAlive():
+    logger.info("[download_and_play.py] Download thread alive="+str(download_thread.is_alive()))
+    if download_thread.is_alive():
         logger.info("[download_and_play.py] Killing download thread")
         download_thread.force_stop()
 
@@ -128,11 +127,11 @@ class CustomPlayer(xbmc.Player):
     def force_stop_download_thread(self):
         logger.info("CustomPlayer.force_stop_download_thread")
 
-        if self.download_thread.isAlive():
+        if self.download_thread.is_alive():
             logger.info("CustomPlayer.force_stop_download_thread Killing download thread")
             self.download_thread.force_stop()
 
-            #while self.download_thread.isAlive():
+            #while self.download_thread.is_alive():
             #    xbmc.sleep(1000)
 
     def onPlayBackStarted(self):
@@ -240,6 +239,7 @@ class DownloadThread(threading.Thread):
         existSize = 0
         f = open(self.file_name, 'wb')
         grabado = 0
+
 
         # Interpreta las cabeceras en una URL como en XBMC
         if "|" in self.url:

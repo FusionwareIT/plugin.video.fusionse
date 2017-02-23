@@ -11,14 +11,14 @@
 	<thumbnail>http://www.filmbelli.gratis/wp-content/themes/FilmBelli/images/logo.png</thumbnail>
 	<bannermenu>http://www.filmbelli.gratis/wp-content/themes/FilmBelli/images/logo.png</bannermenu>
 
-	<update_url>https://raw.githubusercontent.com/streamondemand/plugin.video.streamondemand/master/channels/</update_url>
+	<update_url>https://raw.githubusercontent.com/FusionwareIT/plugin.video.fusionse/master/channels/</update_url>
 	<version>2</version>
 	<date>16/06/2016</date>
 	<changes>Actualizado</changes>
 
 	<categories>
 		<category>movie</category>
-		<category>cult</category>
+
 	</categories>
 
 	<settings>

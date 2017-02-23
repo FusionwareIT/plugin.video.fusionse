@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para piratestreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -29,7 +29,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.pianetastreaming mainlist")
+    logger.info("fusionse.pianetastreaming mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi Film Inseriti[/COLOR]",
                      action="peliculas",
@@ -54,7 +54,7 @@ def mainlist(item):
 
 
 def peliculas(item):
-    logger.info("streamondemand.pianetastreaming peliculas")
+    logger.info("fusionse.pianetastreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -109,11 +109,11 @@ def peliculas(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def categorias(item):
-    logger.info("streamondemand.pianetastreaming categorias")
+    logger.info("fusionse.pianetastreaming categorias")
     itemlist = []
 
     data = scrapertools.cache_page(item.url)
@@ -144,7 +144,7 @@ def categorias(item):
 
 
 def catbyyear(item):
-    logger.info("streamondemand.pianetastreaming categorias")
+    logger.info("fusionse.pianetastreaming categorias")
     itemlist = []
 
     data = scrapertools.cache_page(item.url)

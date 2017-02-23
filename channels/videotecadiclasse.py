@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para videotecadiclasse
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -21,7 +21,7 @@ __language__ = "IT"
 
 DEBUG = config.get_setting("debug")
 
-host = "http://videotecadiclasse2013.blogspot.it"
+host = "http://videotecadiclasse2013.blogspot.com"
 
 headers = [
     ['User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0'],
@@ -34,7 +34,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.istreaming mainlist")
+    logger.info("fusionse.istreaming mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi Film Inseriti[/COLOR]",
                      action="peliculas",
@@ -54,7 +54,7 @@ def mainlist(item):
     return itemlist
 
 def search(item, texto):
-    logger.info("streamondemand.videodiclasse " + item.url + " search " + texto)
+    logger.info("fusionse.videodiclasse " + item.url + " search " + texto)
     item.url = "https://www.googleapis.com/customsearch/v1element?key=AIzaSyCVAXiUzRYsML1Pv6RwSG1gunmMikTzQqY&rsz=small&num=4&hl=it&prettyPrint=false&source=gsc&gss=.com&sig=0c3990ce7a056ed50667fe0c3873c9b6&cref=http%3A%2F%2Fvideotecadiclasse2013.blogspot.com%2Fcse_blog.xml&q=" + texto + "&googlehost=www.google.com&callback=google.search.Search.apiary19507"
     try:
         if item.extra == "movie":
@@ -94,7 +94,7 @@ def anno(item):
     return itemlist
 
 def peliculas(item):
-    logger.info("streamondemand.videotecadiclasse peliculas")
+    logger.info("fusionse.videotecadiclasse peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -145,7 +145,7 @@ def peliculas(item):
     return itemlist
 
 def peliculas_src(item):
-    logger.info("streamondemand.videotecadiclasse peliculas")
+    logger.info("fusionse.videotecadiclasse peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -196,4 +196,4 @@ def peliculas_src(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para hugefiles
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # Based on the hugefiles resolver from script.modules.urlresolver

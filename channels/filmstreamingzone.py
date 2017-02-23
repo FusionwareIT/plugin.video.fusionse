@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para filmstreamingzone
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -37,7 +37,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.istreaming mainlist")
+    logger.info("fusionse.istreaming mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi Film Inseriti[/COLOR]",
                      action="peliculas",
@@ -97,7 +97,7 @@ def search(item, texto):
         return []
 
 def peliculas(item):
-    logger.info("streamondemand.filmstreamingzone peliculas")
+    logger.info("fusionse.filmstreamingzone peliculas")
 
     itemlist = []
 

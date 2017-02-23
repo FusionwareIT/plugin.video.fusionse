@@ -1,37 +1,37 @@
 ﻿# -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand 5
+# fusionse 5
 # Copyright 2015 tvalacarta@gmail.com
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #
 # Distributed under the terms of GNU General Public License v3 (GPLv3)
 # http://www.gnu.org/licenses/gpl-3.0.html
 # ------------------------------------------------------------
-# This file is part of streamondemand 5.
+# This file is part of fusionse 5.
 #
-# streamondemand 5 is free software: you can redistribute it and/or modify
+# fusionse 5 is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# streamondemand 5 is distributed in the hope that it will be useful,
+# fusionse 5 is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with streamondemand 5.  If not, see <http://www.gnu.org/licenses/>.
+# along with fusionse 5.  If not, see <http://www.gnu.org/licenses/>.
 # --------------------------------------------------------------------------------
 # Scraper tools for reading and processing web elements
 # --------------------------------------------------------------------------------
 
+import StringIO
+import gzip
 import os
 import re
 import socket
 import time
 import urllib
-import StringIO
-import gzip
 import urllib2
 import urlparse
 
@@ -63,7 +63,7 @@ def cache_page(url,post=None,headers=DEFAULT_HEADERS,modo_cache=CACHE_ACTIVA, ti
     return cachePage(url,post,headers,modo_cache,timeout=timeout)
 
 def cachePage(url,post=None,headers=DEFAULT_HEADERS,modoCache=CACHE_ACTIVA, timeout=DEFAULT_TIMEOUT):
-    logger.info("streamondemand.core.scrapertools cachePage url="+url)
+    logger.info("fusionse.core.scrapertools cachePage url="+url)
 
     # Cache desactivada
     modoCache = CACHE_NUNCA #config.get_setting("cache.mode")
@@ -87,7 +87,7 @@ def cachePage(url,post=None,headers=DEFAULT_HEADERS,modoCache=CACHE_ACTIVA, time
     # CACHE_NUNCA: Siempre va a la URL a descargar
     # obligatorio para peticiones POST
     if modoCache == CACHE_NUNCA or post is not None:
-        logger.info("streamondemand.core.scrapertools MODO_CACHE=2 (no cachear)")
+        logger.info("fusionse.core.scrapertools MODO_CACHE=2 (no cachear)")
 
         try:
             data = downloadpage(url,post,headers, timeout=timeout)
@@ -96,14 +96,14 @@ def cachePage(url,post=None,headers=DEFAULT_HEADERS,modoCache=CACHE_ACTIVA, time
 
     # CACHE_SIEMPRE: Siempre descarga de cache, sin comprobar fechas, excepto cuando no está
     elif modoCache == CACHE_SIEMPRE:
-        logger.info("streamondemand.core.scrapertools MODO_CACHE=1 (cachear todo)")
+        logger.info("fusionse.core.scrapertools MODO_CACHE=1 (cachear todo)")
 
         # Obtiene los handlers del fichero en la cache
         cachedFile, newFile = getCacheFileNames(url)
 
         # Si no hay ninguno, descarga
         if cachedFile == "":
-            logger.info("streamondemand.core.scrapertools No está en cache")
+            logger.info("fusionse.core.scrapertools No está en cache")
 
             # Lo descarga
             data = downloadpage(url,post,headers)
@@ -113,16 +113,16 @@ def cachePage(url,post=None,headers=DEFAULT_HEADERS,modoCache=CACHE_ACTIVA, time
             outfile.write(data)
             outfile.flush()
             outfile.close()
-            logger.info("streamondemand.core.scrapertools Grabado a " + newFile)
+            logger.info("fusionse.core.scrapertools Grabado a " + newFile)
         else:
-            logger.info("streamondemand.core.scrapertools Leyendo de cache " + cachedFile)
+            logger.info("fusionse.core.scrapertools Leyendo de cache " + cachedFile)
             infile = open( cachedFile )
             data = infile.read()
             infile.close()
 
     # CACHE_ACTIVA: Descarga de la cache si no ha cambiado
     else:
-        logger.info("streamondemand.core.scrapertools MODO_CACHE=0 (automática)")
+        logger.info("fusionse.core.scrapertools MODO_CACHE=0 (automática)")
 
         # Datos descargados
         data = ""
@@ -132,7 +132,7 @@ def cachePage(url,post=None,headers=DEFAULT_HEADERS,modoCache=CACHE_ACTIVA, time
 
         # Si no hay ninguno, descarga
         if cachedFile == "":
-            logger.info("streamondemand.core.scrapertools No está en cache")
+            logger.info("fusionse.core.scrapertools No está en cache")
 
             # Lo descarga
             data = downloadpage(url,post,headers)
@@ -142,15 +142,15 @@ def cachePage(url,post=None,headers=DEFAULT_HEADERS,modoCache=CACHE_ACTIVA, time
             outfile.write(data)
             outfile.flush()
             outfile.close()
-            logger.info("streamondemand.core.scrapertools Grabado a " + newFile)
+            logger.info("fusionse.core.scrapertools Grabado a " + newFile)
 
         # Si sólo hay uno comprueba el timestamp (hace una petición if-modified-since)
         else:
             # Extrae el timestamp antiguo del nombre del fichero
             oldtimestamp = time.mktime( time.strptime(cachedFile[-20:-6], "%Y%m%d%H%M%S") )
 
-            logger.info("streamondemand.core.scrapertools oldtimestamp="+cachedFile[-20:-6])
-            logger.info("streamondemand.core.scrapertools oldtimestamp="+time.ctime(oldtimestamp))
+            logger.info("fusionse.core.scrapertools oldtimestamp="+cachedFile[-20:-6])
+            logger.info("fusionse.core.scrapertools oldtimestamp="+time.ctime(oldtimestamp))
 
             # Hace la petición
             updated,data = downloadtools.downloadIfNotModifiedSince(url,oldtimestamp)
@@ -158,7 +158,7 @@ def cachePage(url,post=None,headers=DEFAULT_HEADERS,modoCache=CACHE_ACTIVA, time
             # Si ha cambiado
             if updated:
                 # Borra el viejo
-                logger.info("streamondemand.core.scrapertools Borrando "+cachedFile)
+                logger.info("fusionse.core.scrapertools Borrando "+cachedFile)
                 os.remove(cachedFile)
 
                 # Graba en cache el nuevo
@@ -166,10 +166,10 @@ def cachePage(url,post=None,headers=DEFAULT_HEADERS,modoCache=CACHE_ACTIVA, time
                 outfile.write(data)
                 outfile.flush()
                 outfile.close()
-                logger.info("streamondemand.core.scrapertools Grabado a " + newFile)
+                logger.info("fusionse.core.scrapertools Grabado a " + newFile)
             # Devuelve el contenido del fichero de la cache
             else:
-                logger.info("streamondemand.core.scrapertools Leyendo de cache " + cachedFile)
+                logger.info("fusionse.core.scrapertools Leyendo de cache " + cachedFile)
                 infile = open( cachedFile )
                 data = infile.read()
                 infile.close()
@@ -184,17 +184,17 @@ def getCacheFileNames(url):
     # Obtiene el ID de la cache (md5 de la URL)
     cacheId = get_md5(url)
 
-    logger.info("streamondemand.core.scrapertools cacheId="+cacheId)
+    logger.info("fusionse.core.scrapertools cacheId="+cacheId)
 
     # Timestamp actual
     nowtimestamp = time.strftime("%Y%m%d%H%M%S", time.localtime())
-    logger.info("streamondemand.core.scrapertools nowtimestamp="+nowtimestamp)
+    logger.info("fusionse.core.scrapertools nowtimestamp="+nowtimestamp)
 
     # Nombre del fichero
     # La cache se almacena en una estructura CACHE + URL
     ruta = os.path.join( siteCachePath , cacheId[:2] , cacheId[2:] )
     newFile = os.path.join( ruta , nowtimestamp + ".cache" )
-    logger.info("streamondemand.core.scrapertools newFile="+newFile)
+    logger.info("fusionse.core.scrapertools newFile="+newFile)
     if not os.path.exists(ruta):
         os.makedirs( ruta )
 
@@ -206,18 +206,18 @@ def getCacheFileNames(url):
 # Busca ese fichero en la cache
 def getCachedFile(siteCachePath,cacheId):
     mascara = os.path.join(siteCachePath,cacheId[:2],cacheId[2:],"*.cache")
-    logger.info("streamondemand.core.scrapertools mascara="+mascara)
+    logger.info("fusionse.core.scrapertools mascara="+mascara)
     import glob
     ficheros = glob.glob( mascara )
-    logger.info("streamondemand.core.scrapertools Hay %d ficheros con ese id" % len(ficheros))
+    logger.info("fusionse.core.scrapertools Hay %d ficheros con ese id" % len(ficheros))
 
     cachedFile = ""
 
     # Si hay más de uno, los borra (serán pruebas de programación) y descarga de nuevo
     if len(ficheros)>1:
-        logger.info("streamondemand.core.scrapertools Cache inválida")
+        logger.info("fusionse.core.scrapertools Cache inválida")
         for fichero in ficheros:
-            logger.info("streamondemand.core.scrapertools Borrando "+fichero)
+            logger.info("fusionse.core.scrapertools Borrando "+fichero)
             os.remove(fichero)
 
         cachedFile = ""
@@ -231,13 +231,13 @@ def getCachedFile(siteCachePath,cacheId):
 def getSiteCachePath(url):
     # Obtiene el dominio principal de la URL
     dominio = urlparse.urlparse(url)[1]
-    logger.info("streamondemand.core.scrapertools dominio="+dominio)
+    logger.info("fusionse.core.scrapertools dominio="+dominio)
     nombres = dominio.split(".")
     if len(nombres)>1:
         dominio = nombres[len(nombres)-2]+"."+nombres[len(nombres)-1]
     else:
         dominio = nombres[0]
-    logger.info("streamondemand.core.scrapertools dominio="+dominio)
+    logger.info("fusionse.core.scrapertools dominio="+dominio)
 
     # Crea un directorio en la cache para direcciones de ese dominio
     siteCachePath = os.path.join( CACHE_PATH , dominio )
@@ -253,7 +253,7 @@ def getSiteCachePath(url):
         except:
             logger.error("[scrapertools.py] Error al crear directorio "+siteCachePath)
 
-    logger.info("streamondemand.core.scrapertools siteCachePath="+siteCachePath)
+    logger.info("fusionse.core.scrapertools siteCachePath="+siteCachePath)
 
     return siteCachePath
 
@@ -327,20 +327,13 @@ class NoRedirectHandler(urllib2.HTTPRedirectHandler):
     http_error_307 = http_error_302
 
 def downloadpage(url,post=None,headers=DEFAULT_HEADERS,follow_redirects=True, timeout=DEFAULT_TIMEOUT, header_to_get=None):
-    logger.info("streamondemand.core.scrapertools downloadpage")
-    logger.info("streamondemand.core.scrapertools url="+url)
-
-    data, _ = downloadpageWithResult(url=url, post=post, headers=headers, follow_redirects=follow_redirects, timeout=timeout, header_to_get=header_to_get)
-    return data
-
-def downloadpageWithResult(url,post=None,headers=DEFAULT_HEADERS,follow_redirects=True, timeout=DEFAULT_TIMEOUT, header_to_get=None):
-    logger.info("streamondemand.core.scrapertools downloadpageWithResult")
-    logger.info("streamondemand.core.scrapertools url="+url)
+    logger.info("fusionse.core.scrapertools downloadpage")
+    logger.info("fusionse.core.scrapertools url="+url)
 
     if post is not None:
-        logger.info("streamondemand.core.scrapertools post="+post)
+        logger.info("fusionse.core.scrapertools post="+post)
     else:
-        logger.info("streamondemand.core.scrapertools post=None")
+        logger.info("fusionse.core.scrapertools post=None")
 
     # ---------------------------------
     # Instala las cookies
@@ -351,8 +344,7 @@ def downloadpageWithResult(url,post=None,headers=DEFAULT_HEADERS,follow_redirect
 
     dominio = urlparse.urlparse(url)[1].replace("www.", "")
     ficherocookies = os.path.join(COOKIES_PATH, dominio + ".dat" )
-    resultCode = 0
-    logger.info("streamondemand.core.scrapertools ficherocookies="+ficherocookies)
+    logger.info("fusionse.core.scrapertools ficherocookies="+ficherocookies)
 
     cj = None
     ClientCookie = None
@@ -360,34 +352,34 @@ def downloadpageWithResult(url,post=None,headers=DEFAULT_HEADERS,follow_redirect
 
     # Let's see if cookielib is available
     try:
-        logger.info("streamondemand.core.scrapertools Importando cookielib")
+        logger.info("fusionse.core.scrapertools Importando cookielib")
         import cookielib
     except ImportError:
-        logger.info("streamondemand.core.scrapertools cookielib no disponible")
+        logger.info("fusionse.core.scrapertools cookielib no disponible")
         # If importing cookielib fails
         # let's try ClientCookie
         try:
-            logger.info("streamondemand.core.scrapertools Importando ClientCookie")
+            logger.info("fusionse.core.scrapertools Importando ClientCookie")
             import ClientCookie
         except ImportError:
-            logger.info("streamondemand.core.scrapertools ClientCookie no disponible")
+            logger.info("fusionse.core.scrapertools ClientCookie no disponible")
             # ClientCookie isn't available either
             urlopen = urllib2.urlopen
             Request = urllib2.Request
         else:
-            logger.info("streamondemand.core.scrapertools ClientCookie disponible")
+            logger.info("fusionse.core.scrapertools ClientCookie disponible")
             # imported ClientCookie
             urlopen = ClientCookie.urlopen
             Request = ClientCookie.Request
             cj = ClientCookie.MozillaCookieJar()
 
     else:
-        logger.info("streamondemand.core.scrapertools cookielib disponible")
+        logger.info("fusionse.core.scrapertools cookielib disponible")
         # importing cookielib worked
         urlopen = urllib2.urlopen
         Request = urllib2.Request
 
-        logger.info("streamondemand.core.scrapertools cambio en politicas")
+        logger.info("fusionse.core.scrapertools cambio en politicas")
 
         #cj = cookielib.LWPCookieJar(ficherocookies,policy=MyCookiePolicy())
         #cj = cookielib.MozillaCookieJar(ficherocookies,policy=MyCookiePolicy)
@@ -401,23 +393,23 @@ def downloadpageWithResult(url,post=None,headers=DEFAULT_HEADERS,follow_redirect
     if cj is not None:
     # we successfully imported
     # one of the two cookie handling modules
-        logger.info("streamondemand.core.scrapertools Hay cookies")
+        logger.info("fusionse.core.scrapertools Hay cookies")
 
         if os.path.isfile(ficherocookies):
-            logger.info("streamondemand.core.scrapertools Leyendo fichero cookies")
+            logger.info("fusionse.core.scrapertools Leyendo fichero cookies")
             # if we have a cookie file already saved
             # then load the cookies into the Cookie Jar
             try:
                 cj.load(ficherocookies,ignore_discard=True)
             except:
-                logger.info("streamondemand.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
+                logger.info("fusionse.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
                 os.remove(ficherocookies)
 
         # Now we need to get our Cookie Jar
         # installed in the opener;
         # for fetching URLs
         if cookielib is not None:
-            logger.info("streamondemand.core.scrapertools opener usando urllib2 (cookielib)")
+            logger.info("fusionse.core.scrapertools opener usando urllib2 (cookielib)")
             # if we use cookielib
             # then we get the HTTPCookieProcessor
             # and install the opener in urllib2
@@ -428,7 +420,7 @@ def downloadpageWithResult(url,post=None,headers=DEFAULT_HEADERS,follow_redirect
             urllib2.install_opener(opener)
 
         else:
-            logger.info("streamondemand.core.scrapertools opener usando ClientCookie")
+            logger.info("fusionse.core.scrapertools opener usando ClientCookie")
             # if we use ClientCookie
             # then we get the HTTPCookieProcessor
             # and install the opener in ClientCookie
@@ -447,40 +439,40 @@ def downloadpageWithResult(url,post=None,headers=DEFAULT_HEADERS,follow_redirect
 
     # Construye el request
     if post is None:
-        logger.info("streamondemand.core.scrapertools petición GET")
+        logger.info("fusionse.core.scrapertools petición GET")
     else:
-        logger.info("streamondemand.core.scrapertools petición POST")
+        logger.info("fusionse.core.scrapertools petición POST")
 
     # Añade las cabeceras
-    logger.info("streamondemand.core.scrapertools ---------------------------")
+    logger.info("fusionse.core.scrapertools ---------------------------")
     for header in headers:
-        logger.info("streamondemand.core.scrapertools header %s=%s" % (str(header[0]),str(header[1])) )
+        logger.info("fusionse.core.scrapertools header %s=%s" % (str(header[0]),str(header[1])) )
         txheaders[header[0]]=header[1]
-    logger.info("streamondemand.core.scrapertools ---------------------------")
+    logger.info("fusionse.core.scrapertools ---------------------------")
 
     req = Request(url, post, txheaders)
 
     try:
         if timeout is None:
-            logger.info("streamondemand.core.scrapertools Peticion sin timeout")
+            logger.info("fusionse.core.scrapertools Peticion sin timeout")
             handle=urlopen(req)
         else:
-            logger.info("streamondemand.core.scrapertools Peticion con timeout")
+            logger.info("fusionse.core.scrapertools Peticion con timeout")
             #Para todas las versiones:
             deftimeout = socket.getdefaulttimeout()
             socket.setdefaulttimeout(timeout)
             handle=urlopen(req)
             socket.setdefaulttimeout(deftimeout)
-        logger.info("streamondemand.core.scrapertools ...hecha")
+        logger.info("fusionse.core.scrapertools ...hecha")
 
         # Actualiza el almacén de cookies
-        logger.info("streamondemand.core.scrapertools Grabando cookies...")
+        logger.info("fusionse.core.scrapertools Grabando cookies...")
         cj.save(ficherocookies,ignore_discard=True) #  ,ignore_expires=True
-        logger.info("streamondemand.core.scrapertools ...hecho")
+        logger.info("fusionse.core.scrapertools ...hecho")
 
         # Lee los datos y cierra
         if handle.info().get('Content-Encoding') == 'gzip':
-            logger.info("streamondemand.core.scrapertools gzipped")
+            logger.info("fusionse.core.scrapertools gzipped")
             fin = inicio
             import StringIO
             data=handle.read()
@@ -491,23 +483,20 @@ def downloadpageWithResult(url,post=None,headers=DEFAULT_HEADERS,follow_redirect
             gzipper.close()
             fin = time.clock()
         else:
-            logger.info("streamondemand.core.scrapertools normal")
+            logger.info("fusionse.core.scrapertools normal")
             data = handle.read()
-
-        resultCode = handle.code
     except urllib2.HTTPError,e:
         import traceback
         logger.info(traceback.format_exc())
         data = e.read()
-        resultCode = e.code
         #logger.info("data="+repr(data))
-        return data, resultCode
+        return data
 
     info = handle.info()
-    logger.info("streamondemand.core.scrapertools Respuesta")
-    logger.info("streamondemand.core.scrapertools ---------------------------")
+    logger.info("fusionse.core.scrapertools Respuesta")
+    logger.info("fusionse.core.scrapertools ---------------------------")
     for header in info:
-        logger.info("streamondemand.core.scrapertools "+header+"="+info[header])
+        logger.info("fusionse.core.scrapertools "+header+"="+info[header])
 
         # Truco para devolver el valor de un header en lugar del cuerpo entero
         if header_to_get is not None:
@@ -515,7 +504,7 @@ def downloadpageWithResult(url,post=None,headers=DEFAULT_HEADERS,follow_redirect
                 data=info[header]
 
     handle.close()
-    logger.info("streamondemand.core.scrapertools ---------------------------")
+    logger.info("fusionse.core.scrapertools ---------------------------")
 
     '''
     # Lanza la petición
@@ -534,9 +523,9 @@ def downloadpageWithResult(url,post=None,headers=DEFAULT_HEADERS,follow_redirect
 
     # Tiempo transcurrido
     fin = time.clock()
-    logger.info("streamondemand.core.scrapertools Descargado en %d segundos " % (fin-inicio+1))
+    logger.info("fusionse.core.scrapertools Descargado en %d segundos " % (fin-inicio+1))
 
-    return data, resultCode
+    return data
 
 import cookielib
 class MyCookiePolicy(cookielib.DefaultCookiePolicy):
@@ -577,7 +566,7 @@ def downloadpagewithcookies(url):
 
     dominio = urlparse.urlparse(url)[1].replace("www.", "")
     ficherocookies = os.path.join(COOKIES_PATH, dominio + ".dat" )
-    logger.info("streamondemand.core.scrapertools Cookiefile="+ficherocookies)
+    logger.info("fusionse.core.scrapertools Cookiefile="+ficherocookies)
 
     cj = None
     ClientCookie = None
@@ -619,7 +608,7 @@ def downloadpagewithcookies(url):
             try:
                 cj.load(ficherocookies)
             except:
-                logger.info("streamondemand.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
+                logger.info("fusionse.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
                 os.remove(ficherocookies)
 
         # Now we need to get our Cookie Jar
@@ -667,7 +656,7 @@ def downloadpagewithcookies(url):
     return data
 
 def downloadpageWithoutCookies(url):
-    logger.info("streamondemand.core.scrapertools Descargando " + url)
+    logger.info("fusionse.core.scrapertools Descargando " + url)
     inicio = time.clock()
     req = urllib2.Request(url)
     req.add_header('User-Agent', DEFAULT_USER_AGENT)
@@ -682,7 +671,7 @@ def downloadpageWithoutCookies(url):
     data=response.read()
     response.close()
     fin = time.clock()
-    logger.info("streamondemand.core.scrapertools Descargado en %d segundos " % (fin-inicio+1))
+    logger.info("fusionse.core.scrapertools Descargado en %d segundos " % (fin-inicio+1))
     return data
 
 
@@ -740,7 +729,7 @@ def downloadpageGzip(url):
             try:
                 cj.load(ficherocookies)
             except:
-                logger.info("streamondemand.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
+                logger.info("fusionse.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
                 os.remove(ficherocookies)
 
         # Now we need to get our Cookie Jar
@@ -792,7 +781,7 @@ def downloadpageGzip(url):
     handle.close()
 
     fin = time.clock()
-    logger.info("streamondemand.core.scrapertools Descargado 'Gzipped data' en %d segundos " % (fin-inicio+1))
+    logger.info("fusionse.core.scrapertools Descargado 'Gzipped data' en %d segundos " % (fin-inicio+1))
 
     # Descomprime el archivo de datos Gzip
     try:
@@ -804,7 +793,7 @@ def downloadpageGzip(url):
         data1 = gzipper.read()
         gzipper.close()
         fin = time.clock()
-        logger.info("streamondemand.core.scrapertools 'Gzipped data' descomprimido en %d segundos " % (fin-inicio+1))
+        logger.info("fusionse.core.scrapertools 'Gzipped data' descomprimido en %d segundos " % (fin-inicio+1))
         return data1
     except:
         return data
@@ -812,7 +801,7 @@ def downloadpageGzip(url):
 def printMatches(matches):
     i = 0
     for match in matches:
-        logger.info("streamondemand.core.scrapertools %d %s" % (i , match))
+        logger.info("fusionse.core.scrapertools %d %s" % (i , match))
         i = i + 1
 
 def get_match(data,patron,index=0):
@@ -1112,19 +1101,19 @@ def getLocationHeaderFromResponse(url):
 
 def get_header_from_response(url,header_to_get="",post=None,headers=DEFAULT_HEADERS):
     header_to_get = header_to_get.lower()
-    logger.info("streamondemand.core.scrapertools get_header_from_response url="+url+", header_to_get="+header_to_get)
+    logger.info("fusionse.core.scrapertools get_header_from_response url="+url+", header_to_get="+header_to_get)
 
     if post is not None:
-        logger.info("streamondemand.core.scrapertools post="+post)
+        logger.info("fusionse.core.scrapertools post="+post)
     else:
-        logger.info("streamondemand.core.scrapertools post=None")
+        logger.info("fusionse.core.scrapertools post=None")
 
     #  Inicializa la librería de las cookies
     #ficherocookies = os.path.join( config.get_data_path(), 'cookies.dat' )
 
     dominio = urlparse.urlparse(url)[1].replace("www.", "")
     ficherocookies = os.path.join(COOKIES_PATH, dominio + ".dat" )
-    logger.info("streamondemand.core.scrapertools ficherocookies="+ficherocookies)
+    logger.info("fusionse.core.scrapertools ficherocookies="+ficherocookies)
 
     cj = None
     ClientCookie = None
@@ -1139,13 +1128,13 @@ def get_header_from_response(url,header_to_get="",post=None,headers=DEFAULT_HEAD
     # that has useful load and save methods
 
     if os.path.isfile(ficherocookies):
-        logger.info("streamondemand.core.scrapertools Leyendo fichero cookies")
+        logger.info("fusionse.core.scrapertools Leyendo fichero cookies")
         # if we have a cookie file already saved
         # then load the cookies into the Cookie Jar
         try:
             cj.load(ficherocookies)
         except:
-            logger.info("streamondemand.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
+            logger.info("fusionse.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
             os.remove(ficherocookies)
 
     if header_to_get=="location":
@@ -1163,16 +1152,16 @@ def get_header_from_response(url,header_to_get="",post=None,headers=DEFAULT_HEAD
 
     # Traza la peticion
     if post is None:
-        logger.info("streamondemand.core.scrapertools petición GET")
+        logger.info("fusionse.core.scrapertools petición GET")
     else:
-        logger.info("streamondemand.core.scrapertools petición POST")
+        logger.info("fusionse.core.scrapertools petición POST")
 
     # Array de cabeceras
-    logger.info("streamondemand.core.scrapertools ---------------------------")
+    logger.info("fusionse.core.scrapertools ---------------------------")
     for header in headers:
-        logger.info("streamondemand.core.scrapertools header=%s" % str(header[0]))
+        logger.info("fusionse.core.scrapertools header=%s" % str(header[0]))
         txheaders[header[0]]=header[1]
-    logger.info("streamondemand.core.scrapertools ---------------------------")
+    logger.info("fusionse.core.scrapertools ---------------------------")
 
     # Construye el request
     req = Request(url, post, txheaders)
@@ -1184,37 +1173,37 @@ def get_header_from_response(url,header_to_get="",post=None,headers=DEFAULT_HEAD
     # Lee los datos y cierra
     #data=handle.read()
     info = handle.info()
-    logger.info("streamondemand.core.scrapertools Respuesta")
-    logger.info("streamondemand.core.scrapertools ---------------------------")
+    logger.info("fusionse.core.scrapertools Respuesta")
+    logger.info("fusionse.core.scrapertools ---------------------------")
     location_header=""
     for header in info:
-        logger.info("streamondemand.core.scrapertools "+header+"="+info[header])
+        logger.info("fusionse.core.scrapertools "+header+"="+info[header])
         if header==header_to_get:
             location_header=info[header]
     handle.close()
-    logger.info("streamondemand.core.scrapertools ---------------------------")
+    logger.info("fusionse.core.scrapertools ---------------------------")
 
     # Tiempo transcurrido
     fin = time.clock()
-    logger.info("streamondemand.core.scrapertools Descargado en %d segundos " % (fin-inicio+1))
+    logger.info("fusionse.core.scrapertools Descargado en %d segundos " % (fin-inicio+1))
 
     return location_header
 
 def get_headers_from_response(url,post=None,headers=DEFAULT_HEADERS):
     return_headers = []
-    logger.info("streamondemand.core.scrapertools get_headers_from_response url="+url)
+    logger.info("fusionse.core.scrapertools get_headers_from_response url="+url)
 
     if post is not None:
-        logger.info("streamondemand.core.scrapertools post="+post)
+        logger.info("fusionse.core.scrapertools post="+post)
     else:
-        logger.info("streamondemand.core.scrapertools post=None")
+        logger.info("fusionse.core.scrapertools post=None")
 
     #  Inicializa la librería de las cookies
     #ficherocookies = os.path.join( config.get_data_path(), 'cookies.dat' )
 
     dominio = urlparse.urlparse(url)[1].replace("www.", "")
     ficherocookies = os.path.join(COOKIES_PATH, dominio + ".dat" )
-    logger.info("streamondemand.core.scrapertools ficherocookies="+ficherocookies)
+    logger.info("fusionse.core.scrapertools ficherocookies="+ficherocookies)
 
     cj = None
     ClientCookie = None
@@ -1229,13 +1218,13 @@ def get_headers_from_response(url,post=None,headers=DEFAULT_HEADERS):
     # that has useful load and save methods
 
     if os.path.isfile(ficherocookies):
-        logger.info("streamondemand.core.scrapertools Leyendo fichero cookies")
+        logger.info("fusionse.core.scrapertools Leyendo fichero cookies")
         # if we have a cookie file already saved
         # then load the cookies into the Cookie Jar
         try:
             cj.load(ficherocookies)
         except:
-            logger.info("streamondemand.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
+            logger.info("fusionse.core.scrapertools El fichero de cookies existe pero es ilegible, se borra")
             os.remove(ficherocookies)
 
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj),NoRedirectHandler())
@@ -1249,16 +1238,16 @@ def get_headers_from_response(url,post=None,headers=DEFAULT_HEADERS):
 
     # Traza la peticion
     if post is None:
-        logger.info("streamondemand.core.scrapertools petición GET")
+        logger.info("fusionse.core.scrapertools petición GET")
     else:
-        logger.info("streamondemand.core.scrapertools petición POST")
+        logger.info("fusionse.core.scrapertools petición POST")
 
     # Array de cabeceras
-    if DEBUG_LEVEL: logger.info("streamondemand.core.scrapertools ---------------------------")
+    if DEBUG_LEVEL: logger.info("fusionse.core.scrapertools ---------------------------")
     for header in headers:
-        if DEBUG_LEVEL: logger.info("streamondemand.core.scrapertools header=%s" % str(header[0]))
+        if DEBUG_LEVEL: logger.info("fusionse.core.scrapertools header=%s" % str(header[0]))
         txheaders[header[0]]=header[1]
-    if DEBUG_LEVEL: logger.info("streamondemand.core.scrapertools ---------------------------")
+    if DEBUG_LEVEL: logger.info("fusionse.core.scrapertools ---------------------------")
 
     # Construye el request
     req = Request(url, post, txheaders)
@@ -1270,18 +1259,18 @@ def get_headers_from_response(url,post=None,headers=DEFAULT_HEADERS):
     # Lee los datos y cierra
     #data=handle.read()
     info = handle.info()
-    if DEBUG_LEVEL: logger.info("streamondemand.core.scrapertools Respuesta")
-    if DEBUG_LEVEL: logger.info("streamondemand.core.scrapertools ---------------------------")
+    if DEBUG_LEVEL: logger.info("fusionse.core.scrapertools Respuesta")
+    if DEBUG_LEVEL: logger.info("fusionse.core.scrapertools ---------------------------")
     location_header=""
     for header in info:
-        if DEBUG_LEVEL: logger.info("streamondemand.core.scrapertools "+header+"="+info[header])
+        if DEBUG_LEVEL: logger.info("fusionse.core.scrapertools "+header+"="+info[header])
         return_headers.append( [header,info[header]] )
     handle.close()
-    if DEBUG_LEVEL: logger.info("streamondemand.core.scrapertools ---------------------------")
+    if DEBUG_LEVEL: logger.info("fusionse.core.scrapertools ---------------------------")
 
     # Tiempo transcurrido
     fin = time.clock()
-    logger.info("streamondemand.core.scrapertools Descargado en %d segundos " % (fin-inicio+1))
+    logger.info("fusionse.core.scrapertools Descargado en %d segundos " % (fin-inicio+1))
 
     return return_headers
 
@@ -1334,38 +1323,16 @@ def get_domain_from_url(url):
 
     return filename
 
+# Parses the title of a tv show episode and returns the season id + episode id in format "1x01"
 def get_season_and_episode(title):
-    """
-    Retorna el numero de temporada y de episodio en formato "1x01" obtenido del titulo de un episodio
-    Ejemplos de diferentes valores para title y su valor devuelto:
-        "serie 101x1.strm", "s101e1.avi", "t101e1.avi"  -> '101x01'
-        "Name TvShow 1x6.avi" -> '1x06'
-        "Temp 3 episodio 2.avi" -> '3x02'
-        "Alcantara season 13 episodie 12.avi" -> '13x12'
-        "Temp1 capitulo 14" -> '1x14'
-        "Temporada 1: El origen Episodio 9" -> '' (entre el numero de temporada y los episodios no puede haber otro texto)
-        "Episodio 25: titulo episodio" -> '' (no existe el numero de temporada)
-        "Serie X Temporada 1" -> '' (no existe el numero del episodio)
-    @type title: str
-    @param title: titulo del episodio de una serie
-    @rtype: str
-    @return: Numero de temporada y episodio en formato "1x01" o cadena vacia si no se han encontrado
-    """
-    filename = ""
+    logger.info("get_season_and_episode('"+title+"')")
 
-    patrons = ["(\d+)x(\d+)", "(?:s|t)(\d+)e(\d+)",
-               "(?:season|stag\w*)\s*(\d+)\s*(?:capitolo|epi\w*)\s*(\d+)"]
+    patron ="(\d+)[x|X](\d+)"
+    matches = re.compile(patron).findall(title)
+    logger.info(str(matches))
+    filename=matches[0][0]+"x"+matches[0][1]
 
-    for patron in patrons:
-        try:
-            matches = re.compile(patron, re.I).search(title)
-            if matches:
-                filename = matches.group(1) + "x" + matches.group(2).zfill(2)
-                break
-        except:
-            pass
-
-    logger.info("'" + title + "' -> '" + filename + "'")
+    logger.info("get_season_and_episode('"+title+"') -> "+filename)
 
     return filename
 
@@ -1563,7 +1530,6 @@ def read_body_and_headers(url, post=None, headers=[], follow_redirects=False, ti
     logger.info("read_body_and_headers body="+data)
 
     return data,returnheaders
-
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     """

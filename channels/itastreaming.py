@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para itastreaming.click 
 # by SchisM
 # http://www.mimediacenter.info/foro/viewforum.php?f=36

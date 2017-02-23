@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Ricerca "Saghe"
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -46,47 +46,47 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.saghe mainlist")
+    logger.info("fusionse.saghe mainlist")
     itemlist = [Item(channel=__channel__,
-                     title="[COLOR yellow]The Marvel Universe[/COLOR]",
+                     title="[COLOR yellow]Film Marvel Universe[/COLOR]",
                      action="tmdb_saghe",
                      url='http://api.themoviedb.org/3/list/50941077760ee35e1500000c?api_key=%s&language=it' % tmdb_key,
-                     thumbnail="https://image.tmdb.org/t/p/w180_and_h270_bestv2/6t3KOEUtrIPmmtu1czzt6p2XxJy.jpg"),
+                     thumbnail="https://image.tmdb.org/t/p/w640/5N20rQURev5CNDcMjHVUZhpoCNC.jpg"),
                 Item(channel=__channel__,
-                     title="[COLOR yellow]The DC Comics Universe[/COLOR]",
+                     title="[COLOR yellow]Film DC Comics Universe[/COLOR]",
                      action="tmdb_saghe",
                      url='http://api.themoviedb.org/3/list/5094147819c2955e4c00006a?api_key=%s&language=it' % tmdb_key,
-                     thumbnail="https://image.tmdb.org/t/p/w180_and_h270_bestv2/xWlaTLnD8NJMTT9PGOD9z5re1SL.jpg"),
+                     thumbnail="https://image.tmdb.org/t/p/w640/cGOPbv9wA5gEejkUN892JrveARt.jpg"),
                 Item(channel=__channel__,
-                     title="[COLOR yellow]iMDb Top 250 Movies[/COLOR]",
+                     title="[COLOR yellow]Film iMDb Top 250[/COLOR]",
                      action="tmdb_saghe",
                      url='http://api.themoviedb.org/3/list/522effe419c2955e9922fcf3?api_key=%s&language=it' % tmdb_key,
-                     thumbnail="https://image.tmdb.org/t/p/w180_and_h270_bestv2/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg"),
+                     thumbnail="https://image.tmdb.org/t/p/w640/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg"),
                 Item(channel=__channel__,
-                     title="[COLOR yellow]Rotten Tomatoes top 100 movies of all times[/COLOR]",
+                     title="[COLOR yellow]Film Rotten Tomatoes Top 100[/COLOR]",
                      action="tmdb_saghe",
                      url='http://api.themoviedb.org/3/list/5418c914c3a368462c000020?api_key=%s&language=it' % tmdb_key,
-                     thumbnail="https://image.tmdb.org/t/p/w180_and_h270_bestv2/zGadcmcF48gy8rKCX2ubBz2ZlbF.jpg"),
+                     thumbnail="https://image.tmdb.org/t/p/w640/kg8Xt7JhLdmjDQneOyAzBzkzc5Z.jpg"),
                 Item(channel=__channel__,
-                     title="[COLOR yellow]Reddit top 250 movies[/COLOR]",
+                     title="[COLOR yellow]Film Reddit Top 250[/COLOR]",
                      action="tmdb_saghe",
                      url='http://api.themoviedb.org/3/list/54924e17c3a3683d070008c8?api_key=%s&language=it' % tmdb_key,
-                     thumbnail="https://image.tmdb.org/t/p/w180_and_h270_bestv2/dM2w364MScsjFf8pfMbaWUcWrR.jpg"),
+                     thumbnail="https://image.tmdb.org/t/p/w640/dM2w364MScsjFf8pfMbaWUcWrR.jpg"),
                 Item(channel=__channel__,
-                     title="[COLOR yellow]Sci-Fi Action[/COLOR]",
+                     title="[COLOR yellow]Film Fantascienza[/COLOR]",
                      action="tmdb_saghe",
                      url='http://api.themoviedb.org/3/list/54408e79929fb858d1000052?api_key=%s&language=it' % tmdb_key,
-                     thumbnail="https://image.tmdb.org/t/p/w180_and_h270_bestv2/5ig0kdWz5kxR4PHjyCgyI5khCzd.jpg"),
+                     thumbnail="https://image.tmdb.org/t/p/w640/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"),
                 Item(channel=__channel__,
-                     title="[COLOR yellow]007 - Movies[/COLOR]",
+                     title="[COLOR yellow]Film James Bond 007[/COLOR]",
                      action="tmdb_saghe",
                      url='http://api.themoviedb.org/3/list/557b152bc3a36840f5000265?api_key=%s&language=it' % tmdb_key,
-                     thumbnail="https://image.tmdb.org/t/p/w180_and_h270_bestv2/zlWBxz2pTA9p45kUTrI8AQiKrHm.jpg"),
+                     thumbnail="https://image.tmdb.org/t/p/w640/HORpg5CSkmeQlAolx3bKMrKgfi.jpg"),
                 Item(channel=__channel__,
-                     title="[COLOR yellow]Disney Classic Collection[/COLOR]",
+                     title="[COLOR yellow]Classici Walt Disney[/COLOR]",
                      action="tmdb_saghe",
                      url='http://api.themoviedb.org/3/list/51224e42760ee3297424a1e0?api_key=%s&language=it' % tmdb_key,
-                     thumbnail="https://image.tmdb.org/t/p/w180_and_h270_bestv2/vGV35HBCMhQl2phhGaQ29P08ZgM.jpg")]
+                     thumbnail="https://image.tmdb.org/t/p/w640/laABfcpEKweQsaZwCWzmGNUpij9.jpg")]
     return itemlist
 
 
@@ -139,7 +139,7 @@ def tmdb_saghe(item):
 
 
 def do_search(item):
-    logger.info("streamondemand.channels.saghe do_search")
+    logger.info("fusionse.channels.saghe do_search")
 
     tecleado = item.extra
     mostra = item.fulltitle
@@ -147,13 +147,13 @@ def do_search(item):
     itemlist = []
 
     channels_path = os.path.join(config.get_runtime_path(), "channels", '*.xml')
-    logger.info("streamondemand.channels.buscador channels_path=" + channels_path)
+    logger.info("fusionse.channels.buscador channels_path=" + channels_path)
 
     channel_language = config.get_setting("channel_language")
-    logger.info("streamondemand.channels.buscador channel_language=" + channel_language)
+    logger.info("fusionse.channels.buscador channel_language=" + channel_language)
     if channel_language == "":
         channel_language = "all"
-        logger.info("streamondemand.channels.buscador channel_language=" + channel_language)
+        logger.info("fusionse.channels.buscador channel_language=" + channel_language)
 
     if config.is_xbmc():
         show_dialog = True
@@ -171,7 +171,7 @@ def do_search(item):
             basename_without_extension = os.path.basename(infile)[:-4]
             # http://docs.python.org/library/imp.html?highlight=imp#module-imp
             obj = imp.load_source(basename_without_extension, infile[:-4]+".py")
-            logger.info("streamondemand.channels.buscador cargado " + basename_without_extension + " de " + infile)
+            logger.info("fusionse.channels.buscador cargado " + basename_without_extension + " de " + infile)
             channel_result_itemlist.extend(obj.search(Item(), tecleado))
             for item in channel_result_itemlist:
                 item.title = " [COLOR azure] " + item.title + " [/COLOR] [COLOR orange]su[/COLOR] [COLOR green]" + basename_without_extension + "[/COLOR]"
@@ -236,3 +236,4 @@ def do_search(item):
         progreso.close()
 
     return itemlist
+

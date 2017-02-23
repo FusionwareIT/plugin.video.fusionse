@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canale per toointalia
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -34,7 +34,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.toointalia mainlist")
+    logger.info("fusionse.toointalia mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Anime[/COLOR]",
                      action="anime",
@@ -78,7 +78,7 @@ def search(item, texto):
 
 
 def anime(item):
-    logger.info("streamondemand.toointalia peliculas")
+    logger.info("fusionse.toointalia peliculas")
 
     itemlist = []
 
@@ -118,7 +118,7 @@ def anime(item):
 
 
 def animazione(item):
-    logger.info("streamondemand.toointalia peliculas")
+    logger.info("fusionse.toointalia peliculas")
 
     itemlist = []
 

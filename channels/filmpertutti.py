@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canale per filmpertutti.co
 # http://www.mimediacenter.info/foro/viewforum.php?f=36&sid=2e761b3d716d9f7dc625f6edc0a40f86
 # ------------------------------------------------------------
@@ -22,7 +22,7 @@ __language__ = "IT"
 
 DEBUG = config.get_setting("debug")
 
-host = "http://www.filmpertutti.black"
+host = "http://www.filmpertutti.online"
 
 headers = [
     ['User-Agent', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:44.0) Gecko/20100101 Firefox/44.0'],
@@ -36,7 +36,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.filmpertutti mainlist")
+    logger.info("fusionse.filmpertutti mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi film inseriti[/COLOR]",
                      action="peliculas",
@@ -69,7 +69,7 @@ def mainlist(item):
 
 
 def peliculas(item):
-    logger.info("streamondemand.filmpertutti peliculas")
+    logger.info("fusionse.filmpertutti peliculas")
     itemlist = []
 
 
@@ -120,7 +120,7 @@ def peliculas(item):
 
 
 def peliculas_tv(item):
-    logger.info("streamondemand.filmpertutti peliculas")
+    logger.info("fusionse.filmpertutti peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -173,11 +173,11 @@ def peliculas_tv(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def categorias(item):
-    logger.info("streamondemand.filmpertutti categorias")
+    logger.info("fusionse.filmpertutti categorias")
     itemlist = []
 
     data = scrapertools.cache_page(item.url)
@@ -209,7 +209,7 @@ def categorias(item):
 
 
 def search(item, texto):
-    logger.info("streamondemand.filmpertutti " + item.url + " search " + texto)
+    logger.info("fusionse.filmpertutti " + item.url + " search " + texto)
     item.url = host + "/?s=" + texto
     try:
         if item.extra == "movie":
@@ -296,7 +296,7 @@ def episodios(item):
 
 
 def findvideos(item):
-    logger.info("streamondemand.filmpertutti findvideos")
+    logger.info("fusionse.filmpertutti findvideos")
 
     # Descarga la página
     data = item.url if item.extra == 'serie' else scrapertools.cache_page(item.url)

@@ -1,6 +1,6 @@
 # -*- coding: iso-8859-1 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para italiafilm
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -188,7 +188,7 @@ def peliculas(item):
     return itemlist
 
 def findvid(item):
-    logger.info("streamondemand.italiafilm findvid")
+    logger.info("fusionse.italiafilm findvid")
 
     itemlist = []
 
@@ -415,7 +415,7 @@ def episodios(item):
     return itemlist
 
 def findvideos(item):
-    logger.info("streamondemand.italiafilm findvideos")
+    logger.info("fusionse.italiafilm findvideos")
 
     # Descarga la página
     data = item.url 
@@ -434,5 +434,5 @@ def findvideos(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 

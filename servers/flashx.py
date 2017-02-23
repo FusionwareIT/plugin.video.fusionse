@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para flashx by cmos
 # http://blog.tvalacarta.info/plugin-xbmc/pelisalacarta/
 # ------------------------------------------------------------
@@ -18,7 +18,7 @@ from core import scrapertools
 
 
 def test_video_exists(page_url):
-    logger.info("streamondemand.servers.flashx test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.flashx test_video_exists(page_url='%s')" % page_url)
 
     data = scrapertools.downloadpageWithoutCookies(page_url.replace("playvid-", ""))
 
@@ -31,7 +31,7 @@ def test_video_exists(page_url):
 
 
 def get_video_url(page_url, premium=False, user="", password="", video_password=""):
-    logger.info("streamondemand.servers.flashx url=" + page_url)
+    logger.info("fusionse.servers.flashx url=" + page_url)
 
     # Lo pide una vez
     data = scrapertools.downloadpageWithoutCookies(page_url)
@@ -127,14 +127,14 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
                 filetools.write(subtitle, data)
             except:
                 import traceback
-                logger.info("streamondemand.servers.flashx Error al descargar el subtítulo: "+traceback.format_exc())
+                logger.info("fusionse.servers.flashx Error al descargar el subtítulo: "+traceback.format_exc())
 
     for media_url, label in media_urls:
         if not media_url.endswith("png") and not media_url.endswith(".srt"):
             video_urls.append(["." + media_url.rsplit('.', 1)[1] + " [flashx]", media_url, 0, subtitle])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.flashx %s - %s" % (video_url[0], video_url[1]))
+        logger.info("fusionse.servers.flashx %s - %s" % (video_url[0], video_url[1]))
 
     return video_urls
 
@@ -148,7 +148,7 @@ def find_videos(data):
     # http://flashx.tv/z3nnqbspjyne
     # http://www.flashx.tv/embed-li5ydvxhg514.html
     patronvideos = 'flashx.(?:tv|pw)/(?:embed.php\?c=|embed-|playvid-|)([A-z0-9]+)'
-    logger.info("streamondemand.servers.flashx find_videos #" + patronvideos + "#")
+    logger.info("fusionse.servers.flashx find_videos #" + patronvideos + "#")
     matches = re.compile(patronvideos, re.DOTALL).findall(data)
 
     for match in matches:

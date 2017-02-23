@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para altastreaming
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -22,20 +22,14 @@ __language__ = "IT"
 
 DEBUG = config.get_setting("debug")
 
-host = "http://www.altastreaming.tv/"
-
-headers = [
-    ['User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:38.0) Gecko/20100101 Firefox/38.0'],
-    ['Accept-Encoding', 'gzip, deflate'],
-    ['Referer', host]
-]
+host = "http://www.altastreaming.com/"
 
 def isGeneric():
     return True
 
 
 def mainlist(item):
-    logger.info("streamondemand.altastreaming mainlist")
+    logger.info("fusionse.altastreaming mainlist")
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Aggiornamenti Film[/COLOR]",
                      action="peliculas",
@@ -71,7 +65,7 @@ def categorias(item):
     itemlist = []
 
     # Descarga la pagina
-    data = scrapertools.anti_cloudflare(item.url, headers)
+    data = scrapertools.cache_page(item.url)
     bloque = scrapertools.get_match(data, '<ul>(.*?)</ul>')
 
     # Extrae las entradas (carpetas)
@@ -93,7 +87,7 @@ def categorias(item):
 
 
 def search(item, texto):
-    logger.info("streamondemand.altastreaming " + item.url + " search " + texto)
+    logger.info("fusionse.altastreaming " + item.url + " search " + texto)
     item.url = host + "/?do=search&subaction=search&story=" + texto
     try:
         if item.extra == "movie":
@@ -108,11 +102,11 @@ def search(item, texto):
         return []
 
 def peliculas(item):
-    logger.info("streamondemand.altastreaming peliculas")
+    logger.info("fusionse.altastreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
-    data = scrapertools.anti_cloudflare(item.url, headers)
+    data = scrapertools.cache_page(item.url)
 
     # Extrae las entradas (carpetas)
     patron = '<h3 class="fl-title"> <a href="([^"]+)"  title="([^"]+)">'
@@ -158,11 +152,11 @@ def peliculas(item):
     return itemlist
 
 def peliculas_tv(item):
-    logger.info("streamondemand.altastreaming peliculas")
+    logger.info("fusionse.altastreaming peliculas")
     itemlist = []
 
     # Descarga la pagina
-    data = scrapertools.anti_cloudflare(item.url, headers)
+    data = scrapertools.cache_page(item.url)
     bloque = scrapertools.get_match(data, '<div class="container margin-block">(.*?)<footer class="footer">')
 
     # Extrae las entradas (carpetas)
@@ -209,11 +203,11 @@ def peliculas_tv(item):
     return itemlist
 
 def episodios(item):
-    logger.info("streamondemand.channels.altastreaming episodios")
+    logger.info("fusionse.channels.altastreaming episodios")
 
     itemlist = []
 
-    data = scrapertools.anti_cloudflare(item.url, headers)
+    data = scrapertools.cache_page(item.url)
 
     patron = '<li id="serie-[^-]+-title="([^"]+)">\s*<span[^<]+<\/span>\s*<span[^<]+<\/span>\s*<a[^=]+=[^=]+=[^=]+=[^=]+=[^=]+="([^"]+)">'
     matches = re.compile(patron, re.DOTALL).findall(data)
@@ -238,7 +232,7 @@ def episodios(item):
 
 def findvideos_tv(item):
     itemlist=[]
-    data = scrapertools.anti_cloudflare(item.url, headers)
+    data = scrapertools.cache_page(item.url)
 
     elemento = scrapertools.find_single_match(data, 'file: "(.*?)",')
 
@@ -251,23 +245,9 @@ def findvideos_tv(item):
                          show=item.fulltitle))
     return itemlist
 
-def findvideos(item):
-
-    data = scrapertools.anti_cloudflare(item.url, headers)
-
-    itemlist = servertools.find_video_items(data=data)
-
-    for videoitem in itemlist:
-        videoitem.title = "".join([item.title, '[COLOR green][B]' + videoitem.title + '[/B][/COLOR]'])
-        videoitem.fulltitle = item.fulltitle
-        videoitem.show = item.show
-        videoitem.thumbnail = item.thumbnail
-        videoitem.channel = __channel__
-
-    return itemlist
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 #channel disabled

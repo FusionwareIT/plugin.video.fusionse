@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para letwatch
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -13,7 +13,7 @@ from core import scrapertools
 
 
 def test_video_exists(page_url):
-    logger.info("streamondemand.servers.letwatch test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.letwatch test_video_exists(page_url='%s')" % page_url)
 
     data = scrapertools.cache_page(page_url)
     if ("File was deleted" or "Not Found") in data: return False, "[Letwatch] El archivo no existe o ha sido borrado"
@@ -24,7 +24,7 @@ def test_video_exists(page_url):
 
 
 def get_video_url(page_url, premium=False, user="", password="", video_password=""):
-    logger.info("streamondemand.servers.letwatch url=" + page_url)
+    logger.info("fusionse.servers.letwatch url=" + page_url)
 
     data = scrapertools.cache_page(page_url)
 
@@ -44,7 +44,7 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
                     [scrapertools.get_filename_from_url(media_url)[-4:] + " (" + label + ") [letwatch]", media_url])
 
     for video_url in video_urls:
-        logger.info("streamondemand.servers.letwatch %s - %s" % (video_url[0], video_url[1]))
+        logger.info("fusionse.servers.letwatch %s - %s" % (video_url[0], video_url[1]))
 
     return video_urls
 
@@ -57,7 +57,7 @@ def find_videos(data):
 
     # letwatch.us/embed-e47krmd6vqo1
     patronvideos = 'letwatch.(?:us|to)/(?:embed-|)([a-z0-9A-Z]+)(?:.html|)'
-    logger.info("streamondemand.servers.letwatch find_videos #" + patronvideos + "#")
+    logger.info("fusionse.servers.letwatch find_videos #" + patronvideos + "#")
     matches = re.compile(patronvideos, re.DOTALL).findall(data)
 
     for match in matches:

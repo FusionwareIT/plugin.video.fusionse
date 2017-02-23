@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para cloudy
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -13,14 +13,14 @@ from core import logger
 from core import config
 
 def test_video_exists( page_url ):
-    logger.info("streamondemand.servers.cloudy test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.cloudy test_video_exists(page_url='%s')" % page_url)
     
     return True, ""
 
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
     
-    logger.info("streamondemand.servers.clouddy get_video_url(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.clouddy get_video_url(page_url='%s')" % page_url)
     
     video_urls = []
     
@@ -56,7 +56,7 @@ def find_videos(data):
     devuelve = []
 
     patronvideos  = 'https://www.cloudy.ec/embed.php\?id=(.*?&width=.*?&height=\d\d\d)'
-    logger.info("streamondemand.servers.cloudy find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.cloudy find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:

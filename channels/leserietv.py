@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para itafilmtv
-# http://blog.tvalacarta.info/plugin-xbmc/streamondemand.
+# http://blog.tvalacarta.info/plugin-xbmc/fusionse.
 #  By Costaplus
 # ------------------------------------------------------------
 import re
@@ -84,7 +84,7 @@ def mainlist(item):
 
 # -----------------------------------------------------------------
 def novita(item):
-    logger.info("streamondemand.laserietv novità")
+    logger.info("fusionse.laserietv novità")
     itemlist = []
 
     data = scrapertools.anti_cloudflare(item.url, headers)
@@ -172,7 +172,7 @@ def lista_serie(item):
 
 # -----------------------------------------------------------------
 def categorias(item):
-    logger.info("streamondemand.laserietv categorias")
+    logger.info("fusionse.laserietv categorias")
     itemlist = []
 
     data = scrapertools.anti_cloudflare(item.url, headers)
@@ -327,7 +327,7 @@ def info(item):
 # =================================================================
 # -----------------------------------------------------------------
 def HomePage(item):
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 # =================================================================
 
 FilmFanart="https://superrepo.org/static/images/fanart/original/script.artwork.downloader.jpg"

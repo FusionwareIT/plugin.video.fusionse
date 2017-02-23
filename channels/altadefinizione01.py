@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand.- XBMC Plugin
+# fusionse.- XBMC Plugin
 # Canal para altadefinizione01
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -36,7 +36,7 @@ def isGeneric():
 
 
 def mainlist(item):
-    logger.info("streamondemand.altadefinizione01 mainlist")
+    logger.info("fusionse.altadefinizione01 mainlist")
 
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi film inseriti[/COLOR]",
@@ -63,7 +63,7 @@ def mainlist(item):
 
 
 def peliculas(item):
-    logger.info("streamondemand.altadefinizione01 peliculas")
+    logger.info("fusionse.altadefinizione01 peliculas")
     itemlist = []
 
     # Descarga la pagina
@@ -128,11 +128,11 @@ def peliculas(item):
 
 def HomePage(item):
     import xbmc
-    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.streamondemand/)")
+    xbmc.executebuiltin("ReplaceWindow(10024,plugin://plugin.video.fusionse)")
 
 
 def categorias(item):
-    logger.info("streamondemand.altadefinizione01 categorias")
+    logger.info("fusionse.altadefinizione01 categorias")
     itemlist = []
 
     # data = scrapertools.cache_page(item.url)

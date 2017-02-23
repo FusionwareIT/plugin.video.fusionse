@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector for vkpass.com
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # by DrZ3r0

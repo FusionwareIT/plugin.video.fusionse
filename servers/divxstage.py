@@ -1,54 +1,53 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para videos externos de divxstage
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
+# Credits:
+# Unwise and main algorithm taken from Eldorado url resolver
+# https://github.com/Eldorados/script.module.urlresolver/blob/master/lib/urlresolver/plugins/divxstage.py
 
-from core import scrapertools
+import re
+
 from core import logger
-
-host = "http://www.cloudtime.to"
-api = host + "/api/player.api.php"
+from core import scrapertools
+from core import unwise
 
 def test_video_exists( page_url ):
     logger.info("[divxstage.py] test_video_exists(page_url='%s')" % page_url)
     
-    data = scrapertools.cache_page(page_url.replace('/embed/?v=','/video/'))
+    data = scrapertools.cache_page( url = page_url )
+    if "<h3>This file no longer exists" in data:
+        return False,"El archivo no existe<br/>en divxstage o ha sido borrado."
+    else:
+        return True,""
 
-    if "This file no longer exists" in data:
-        return False, "El archivo no existe<br/>en divxstage o ha sido borrado."
+    return True,""
 
-    return True, ""
-
-def get_video_url(page_url, premium = False, user="", password="", video_password=""):
+def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
     logger.info("[divxstage.py] get_video_url(page_url='%s')" % page_url)
 
-    if "divxstage.net" in page_url:
-        page_url = page_url.replace("divxstage.net","cloudtime.to")
+    video_id = scrapertools.get_match(page_url,"http://www.divxstage.net/video/([a-z0-9]+)")
+    data = scrapertools.cache_page(page_url)
 
     data = scrapertools.cache_page(page_url)
 
-    filekey = scrapertools.find_single_match(data, 'flashvars.filekey=([^;]+);')
-    file = scrapertools.find_single_match(data, 'flashvars.file="([^"]+)";')
-    key = scrapertools.find_single_match(data, 'var %s="([^"]+)";' % filekey)
+    try:
+        location = scrapertools.get_match(data,'<param name="src" value="(.+?)"')
+    except:
+        data = unwise.unwise_process(data)
+        filekey = unwise.resolve_var(data, "flashvars.filekey")
         
-    data = api + '?cid2=undefined&pass=undefined&key=%s&cid=0&numOfErrors=0&user=undefined&file=%s&cid3=undefined' % (key, file)
-    data = scrapertools.cache_page(data)
-
-    errorUrl = scrapertools.find_single_match(data, 'url=(.+?)&title')
-
-    data = api + '?errorUrl=%s&cid2=undefined&pass=undefined&errorCode=404&key=%s&cid=0&numOfErrors=1&user=undefined&file=%s&cid3=undefined' % (errorUrl, key, file)
-    data = scrapertools.cache_page(data)
-
-    media_url = scrapertools.find_single_match(data, 'url=(.+?)&title')
+        page_url = 'http://www.divxstage.eu/api/player.api.php?user=undefined&key='+filekey+'&pass=undefined&codes=1&file='+video_id
+        data = scrapertools.cache_page(page_url)
+        location = scrapertools.get_match(data,'url=(.+?)&')
 
     video_urls = []
-    if media_url != "":
-        video_urls.append([scrapertools.get_filename_from_url(media_url)[-4:] + " [divxstage]", media_url])
+    video_urls.append( [ scrapertools.get_filename_from_url(location)[-4:]+" [divxstage]" , location ] )
 
     for video_url in video_urls:
-        logger.info("[divxstage.py] %s - %s" % (video_url[0], video_url[1]))
+        logger.info("[divxstage.py] %s - %s" % (video_url[0],video_url[1]))
 
     return video_urls
 
@@ -58,37 +57,19 @@ def find_videos(data):
     devuelve = []
 
     # divxstage http://www.divxstage.net/video/of7ww1tdv62gf"
-    patronvideos  = 'divxstage[^/]+/video/(\w+)$'
-    logger.info("[divxstage.py] find_videos #" + patronvideos + "#")
-    matches = scrapertools.find_multiple_matches(data, patronvideos)
+    patronvideos  = 'http://www.divxstage.[\w]+/video/([\w]+)'
+    logger.info("[divxstage.py] find_videos #"+patronvideos+"#")
+    matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:
         titulo = "[Divxstage]"
-        url = host + "/embed/?v=" + match
+        url = "http://www.divxstage.net/video/"+match
         if url not in encontrados:
-            logger.info("url=" + url)
-            devuelve.append([titulo, url, 'divxstage'])
+            logger.info("  url="+url)
+            devuelve.append( [ titulo , url , 'divxstage' ] )
             encontrados.add(url)
         else:
-            logger.info("url duplicada=" + url)
+            logger.info("  url duplicada="+url)
             
-    # divxstage http://www.cloudtime.to/video/of7ww1tdv62gf"
-    patronvideos  = 'cloudtime[^/]+/video/(\w+)$'
-    logger.info("[divxstage.py] find_videos #" + patronvideos + "#")
-    matches = scrapertools.find_multiple_matches(data, patronvideos)
-
-    for match in matches:
-        titulo = "[Divxstage]"
-        url = host + "/embed/?v=" + match
-        if url not in encontrados:
-            logger.info("url=" + url)
-            devuelve.append([titulo, url, 'divxstage'])
-            encontrados.add(url)
-        else:
-            logger.info("url duplicada=" + url)
             
     return devuelve
-
-def test():
-    video_urls = get_video_url(host + "/video/of7ww1tdv62gf")
-    return len(video_urls)>0

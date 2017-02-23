@@ -11,14 +11,13 @@
     <thumbnail>http://worldartsme.com/images/film-projector-class-clipart-1.jpg</thumbnail>
     <bannermenu>http://worldartsme.com/images/film-projector-class-clipart-1.jpg</bannermenu>
 
-    <update_url>https://raw.githubusercontent.com/streamondemand/plugin.video.streamondemand/master/channels/</update_url>
-    <version>3</version>
+    <update_url>https://raw.githubusercontent.com/FusionwareIT/plugin.video.fusionse/master/channels/</update_url>
+    <version>2</version>
     <date>22/10/2016</date>
     <changes>update</changes>
 
     <categories>
         <category>movie</category>
-        <category>cult</category>
     </categories>
 
     <settings>

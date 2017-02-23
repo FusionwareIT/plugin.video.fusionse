@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 # ------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para vidspot
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 # ------------------------------------------------------------
@@ -12,7 +12,7 @@ from core import scrapertools
 
 
 def test_video_exists(page_url):
-    logger.info("streamondemand.servers.vidspot test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.vidspot test_video_exists(page_url='%s')" % page_url)
 
     # No existe / borrado: http://vidspot.net/8jcgbrzhujri
     data = scrapertools.cache_page("http://anonymouse.org/cgi-bin/anon-www.cgi/" + page_url)
@@ -24,7 +24,7 @@ def test_video_exists(page_url):
 
 
 def get_video_url(page_url, premium=False, user="", password="", video_password=""):
-    logger.info("streamondemand.servers.vidspot url=%s" % page_url)
+    logger.info("fusionse.servers.vidspot url=%s" % page_url)
 
     # Normaliza la URL
     videoid = scrapertools.get_match(page_url, "http://vidspot.net/([a-z0-9A-Z]+)")
@@ -106,7 +106,7 @@ def find_videos(data):
     # http://vidspot.net/embed-3sw6tewl21sn-728x400.html
     # http://www.cinetux.org/video/vidspot.php?id=3sw6tewl21sn
     patronvideos = 'vidspot.(?:net/|php\?id=)(?:embed-|)([a-z0-9]+)'
-    logger.info("streamondemand.servers.vidspot find_videos #" + patronvideos + "#")
+    logger.info("fusionse.servers.vidspot find_videos #" + patronvideos + "#")
     matches = re.compile(patronvideos, re.DOTALL).findall(data)
     if len(matches) > 0:
         for match in matches:

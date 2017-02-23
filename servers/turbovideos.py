@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------
-# streamondemand - XBMC Plugin
+# fusionse - XBMC Plugin
 # Conector para turbovideos
 # http://www.mimediacenter.info/foro/viewforum.php?f=36
 #------------------------------------------------------------
@@ -12,17 +12,17 @@ from core import logger
 from core import scrapertools
 
 def test_video_exists( page_url ):
-    logger.info("streamondemand.servers.turbovideos test_video_exists(page_url='%s')" % page_url)
+    logger.info("fusionse.servers.turbovideos test_video_exists(page_url='%s')" % page_url)
     return True,""
 
 def get_video_url( page_url , premium = False , user="" , password="", video_password="" ):
-    logger.info("streamondemand.servers.turbovideos url="+page_url)
+    logger.info("fusionse.servers.turbovideos url="+page_url)
     
     if not "embed" in page_url:
         page_url = page_url.replace("http://turbovideos.net/","http://turbovideos.net/embed-") + ".html"
     
     data = scrapertools.cache_page( page_url )
-    logger.info("streamondemand.servers.turbovideos data="+data)
+    logger.info("fusionse.servers.turbovideos data="+data)
 
     data = scrapertools.find_single_match(data,"<script type='text/javascript'>(eval\(function\(p,a,c,k,e,d.*?)</script>")
     logger.info("data="+data)
@@ -48,7 +48,7 @@ def find_videos(data):
     devuelve = []
 
     patronvideos  = 'turbovideos.net/embed-([a-z0-9A-Z]+)'
-    logger.info("streamondemand.servers.turbovideos find_videos #"+patronvideos+"#")
+    logger.info("fusionse.servers.turbovideos find_videos #"+patronvideos+"#")
     matches = re.compile(patronvideos,re.DOTALL).findall(data)
 
     for match in matches:
